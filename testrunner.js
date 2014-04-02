@@ -208,7 +208,7 @@ function Statistics() {
 			minFPS: minFPS,
 			maxFPS: maxFPS,
 			avgFPS: sumFPS/fpsSamples,
-			finished: didfinish
+			testDidFinish: didfinish
 		};
 		console.log(testResult);
 	},
