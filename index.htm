@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Animationtests</title>
+	<style>
+	#stage div {
+		position:  absolute;
+	}
+	#stage {
+		position: relative;
+	}
+	</style>
+</head>
+<body>
+
+	<div id="stage"></div>
+	<div id="statistics">
+		<h1 id="currentTest"></h1>
+		<p>Test <span id="currentTestNumber"></span> of <span id="totalTests"></span></p>
+		<p id="fps"></p>
+		<p>Frames remaining: <span id="remainingFrames"></span></p>
+	</div>
+	<script src="vendor/modernizr.min.js"></script>
+	<script src="testrunner.js"></script>
+	<script src="objects/Particle.js"></script>
+	<script src="objects/Bar.js"></script>
+		
+	<script>
+		var setTimestamp, setTranslate;
+
+		var testSequence = [ 
+			{object: "Particle", maxObjects: 100, type: "canvas", description: "Canvas 2D"},
+			{object: "Particle", maxObjects: 100, type: "svg", description: "SVG with attribute change"},
+			{object: "Particle", maxObjects: 100, type: "svgrebuild", description: "SVG with removing and inserting"},
+			{object: "Particle", maxObjects: 100, type: "svgtransforms", description: "SVG with SVG Transformations"},
+			{object: "Particle", maxObjects: 100, type: "svgcsstransforms", description: "SVG with CSS Transforms (3D)"},
+			{object: "Particle", maxObjects: 100, type: "html", description: "HTML with CSS Transforms (3D)"},
+			{object: "Particle", maxObjects: 250, type: "canvas", description: "Canvas 2D"},
+			{object: "Particle", maxObjects: 250, type: "svg", description: "SVG with attribute change"},
+			{object: "Particle", maxObjects: 250, type: "svgrebuild", description: "SVG with removing and inserting"},
+			{object: "Particle", maxObjects: 250, type: "svgtransforms", description: "SVG with SVG Transformations"},
+			{object: "Particle", maxObjects: 250, type: "svgcsstransforms", description: "SVG with CSS Transforms (3D)"},
+			{object: "Particle", maxObjects: 250, type: "html", description: "HTML with CSS Transforms (3D)"},
+			{object: "Particle", maxObjects: 1000, type: "canvas", description: "Canvas 2D"},
+			{object: "Particle", maxObjects: 1000, type: "svg", description: "SVG with attribute change"},
+			{object: "Particle", maxObjects: 1000, type: "svgrebuild", description: "SVG with removing and inserting"},
+			{object: "Particle", maxObjects: 1000, type: "svgtransforms", description: "SVG with SVG Transformations"},
+			{object: "Particle", maxObjects: 1000, type: "svgcsstransforms", description: "SVG with CSS Transforms (3D)"},
+			{object: "Particle", maxObjects: 1000, type: "html", description: "HTML with CSS Transforms (3D)"},
+			{object: "Particle", maxObjects: 2500, type: "canvas", description: "Canvas 2D"},
+			{object: "Particle", maxObjects: 2500, type: "svg", description: "SVG with attribute change"},
+			{object: "Particle", maxObjects: 2500, type: "svgtransforms", description: "SVG with SVG Transformations"},
+			{object: "Bar", maxObjects: 800, type: "canvas", description: "Canvas 2D"},
+		];
+
+		var currentTest = 0,
+		testDuration = 600,
+		stageWidth = 800,
+		stageHeight= 600,
+		tick = null,
+		stageElements = [],
+		stage = document.getElementById('stage'),
+		context = null, svg = null, previousTimeStamp = null, framesPainted = 0,
+		svg_ns = "http://www.w3.org/2000/svg", statistics = new Statistics(), breakUnderFPS = 20, stopAfterBreaks = 2;
+
+		
+
+		if (Modernizr.performance) {
+			setTimestamp = function() { return performance.now()};
+		} 
+		else {
+			setTimestamp = function() { return +new Date;};
+		}
+		
+		if (Modernizr.csstransforms3d) {
+			setTranslate = function(x,y) {return "translate3d("+x+"px,"+y+"px,0px)";}
+		}
+		else {
+			setTranslate = function(x,y) {return "translate("+x+"px,"+y+"px)";} 
+		}
+
+		function load() {
+        	prepareStage(testSequence[currentTest].type);
+      	}
+      	window.onload = load;
+
+	</script>
+	
+	
+</body>
+</html>
