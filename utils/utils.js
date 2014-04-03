@@ -6,7 +6,7 @@ function avgArray(arr) {
 		}
 
 		return  sum/arr.length;
-	}
+}
 
 function getRandomColorHex() {
 	var letters = '0123456789ABCDEF'.split('');

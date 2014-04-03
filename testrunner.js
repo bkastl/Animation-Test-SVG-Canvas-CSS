@@ -120,18 +120,28 @@ function clearStage() {
 
 function Statistics() {
 
-	var frameSmoothing = 60, minMS, maxMS, frames, breaks,
+	var frameSmoothing = 30, minMS, maxMS, frames, breaks,
 	sumMS, currentFPS, maxFPS, minFPS, prevTime, fpsSamples, sumFPS;
 	var fpsNode = document.getElementById('fps'), currentTestNode = document.getElementById('currentTest'), currentTestNumber = document.getElementById('currentTestNumber'), totalTests = document.getElementById('totalTests');
-	var remainingFrames = testSequence.length * testDuration,
-	remainingFramesNode = document.getElementById('remainingFrames');
+	var remainingFrames = testSequence.length * testDuration, totalSkippedFrames = 0,
+	remainingFramesNode = document.getElementById('remainingFrames'),
+	skippedFramesNode = document.getElementById('skippedFrames'),
+	testResults = [], passedTests = [];
 
+
+	function killTest() {
+		dnf = true;
+		totalSkippedFrames += remainingFramesTest;
+		remainingFrames -= remainingFramesTest;
+		endAnimationTest();
+		skippedFramesNode.innerHTML = "(Skipped Frames: " + totalSkippedFrames + ")";
+	}
 
 	this.startTest = function () {
 	 	minMS = Infinity, maxMS = 0, frames = 0, breaks = 0,
-		sumMS = 0, sumFPS = 0, fpsSamples = 0, maxFPS = 0, minFPS = Infinity, prevTime = setTimestamp(), didfinish = false;
+		sumMS = 0, sumFPS = 0, fpsSamples = 0, maxFPS = 0, minFPS = Infinity, prevTime = setTimestamp(), didbreak = false;
 		currentTestNode.innerHTML = testSequence[currentTest].object+ "*"+testSequence[currentTest].maxObjects +" ("+testSequence[currentTest].description+")";
-		currentTestNumber.innerHTML = currentTest+1;
+		currentTestNumber.innerHTML = currentTest+1, remainingFramesTest = testDuration;
 		totalTests.innerHTML = testSequence.length;
 		fpsNode.innerHTML = 'Calculating Frames...';
 	},
@@ -143,6 +153,8 @@ function Statistics() {
 
 		--remainingFrames;
 
+		--remainingFramesTest;
+
 		++frames;
 		var now = setTimestamp();
 		
@@ -152,9 +164,12 @@ function Statistics() {
 				if( currentFPS < breakUnderFPS) {
 					++breaks;
 					if (breaks > stopAfterBreaks) {
-						dnf = true;
-						endAnimationTest();
+						killTest();
 					}
+				}
+
+				if (currentFPS < breakImmediatly) {
+					killTest();
 				}
 				sumFPS += currentFPS;
 				++fpsSamples;
@@ -171,6 +186,7 @@ function Statistics() {
 		
 	},
 	this.endTest = function() {
+		
 		var testResult = {
 			testNumber: currentTest,
 			minMS: minMS,
@@ -179,11 +195,24 @@ function Statistics() {
 			minFPS: minFPS,
 			maxFPS: maxFPS,
 			avgFPS: sumFPS/fpsSamples,
-			testDidFinish: didfinish
+			testDidNotFinish: didbreak
 		};
-		console.log(testResult);
+		
+		if (!didbreak) {
+			passedTests.push(currentTest);
+		}
+		testResults.push(testResult);
+		
 	},
 	this.send = function() {
-
+ 		var i = 0, points = 0;
+ 		
+ 		while (i<passedTests.length) {
+ 			points += testResults[passedTests[i]].avgFPS;
+ 			++i;
+ 		}
+ 		points = Math.round(points);
+ 		var maximumPoints = testSequence.length * 60;
+ 		alert('your Browser archieved ' + points + ' of ' + maximumPoints + ' points')
 	}
 }

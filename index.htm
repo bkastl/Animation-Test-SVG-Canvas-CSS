@@ -13,13 +13,18 @@
 	</style>
 </head>
 <body>
-
+	<div id="disclaimer">
+		<h1>Warning!</h1>
+		<p>This test tries to test the animation performance of your browser. Some tests are very demanding and may cause slowdowns of your browser, especially on mobile devices. Maybe you will hear some noises from your fan.</p>
+		<p>As I am writing this lines, there are some browsers on high end desktop computers which can run the complete testsuite at about 80 to 90 percent of the maximum possible frames per second (60 in each test). Other browsers will skip frames and continue with the next test.</p>
+		<p>The tests will take a mininum of 3 minutes to complete, slower systems may take longer...</p>
+	</div>
 	<div id="stage"></div>
 	<div id="statistics">
 		<h1 id="currentTest"></h1>
 		<p>Test <span id="currentTestNumber"></span> of <span id="totalTests"></span></p>
 		<p id="fps"></p>
-		<p>Frames remaining: <span id="remainingFrames"></span></p>
+		<p>Frames remaining: <span id="remainingFrames"></span> <span id="skippedFrames"></span></p>
 	</div>
 	<script src="vendor/modernizr.min.js"></script>
 	<script src="utils/polyfills.js"></script>
@@ -53,18 +58,32 @@
 			{object: "Particle", maxObjects: 2500, type: "canvas", description: "Canvas 2D"},
 			{object: "Particle", maxObjects: 2500, type: "svg", description: "SVG with attribute change"},
 			{object: "Particle", maxObjects: 2500, type: "svgtransforms", description: "SVG with SVG Transformations"},
+			{object: "Bar", maxObjects: 80, type: "canvas", description: "Canvas 2D"},
+			{object: "Bar", maxObjects: 80, type: "svg", description: "SVG with attribute change"},
+			{object: "Bar", maxObjects: 80, type: "svgtransforms", description: "SVG with SVG Transformations"},
+			{object: "Bar", maxObjects: 80, type: "svganimations", description: "SVG with SVG Animations"},
+			{object: "Bar", maxObjects: 80, type: "html", description: "HTML with CSS Transforms (3D)"},
+			{object: "Bar", maxObjects: 240, type: "canvas", description: "Canvas 2D"},
+			{object: "Bar", maxObjects: 240, type: "svg", description: "SVG with attribute change"},
+			{object: "Bar", maxObjects: 240, type: "svgtransforms", description: "SVG with SVG Transformations"},
+			{object: "Bar", maxObjects: 240, type: "svganimations", description: "SVG with SVG Animations"},
+			{object: "Bar", maxObjects: 240, type: "html", description: "HTML with CSS Transforms (3D)"},
 			{object: "Bar", maxObjects: 800, type: "canvas", description: "Canvas 2D"},
+			{object: "Bar", maxObjects: 800, type: "svg", description: "SVG with attribute change"},
+			{object: "Bar", maxObjects: 800, type: "svgtransforms", description: "SVG with SVG Transformations"},
+			{object: "Bar", maxObjects: 800, type: "svganimations", description: "SVG with SVG Animations"},
+			{object: "Bar", maxObjects: 800, type: "html", description: "HTML with CSS Transforms (3D)"}
 		];
 
 		var currentTest = 0,
-		testDuration = 600,
+		testDuration = 300,
 		stageWidth = 800,
 		stageHeight= 600,
 		tick = null,
 		stageElements = [],
 		stage = document.getElementById('stage'),
 		context = null, svg = null, previousTimeStamp = null, framesPainted = 0,
-		svg_ns = "http://www.w3.org/2000/svg", statistics = new Statistics(), breakUnderFPS = 20, stopAfterBreaks = 2;
+		svg_ns = "http://www.w3.org/2000/svg", statistics = new Statistics(), breakUnderFPS = 20, breakImmediatly = 10, stopAfterBreaks = 2;
 
 		
 
