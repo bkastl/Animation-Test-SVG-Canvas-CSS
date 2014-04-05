@@ -29,6 +29,8 @@
 	<script src="vendor/modernizr.min.js"></script>
 	<script src="utils/polyfills.js"></script>
 	<script src="utils/utils.js"></script>
+	<script src="utils/statistics.js"></script>
+	<script src="utils/stage.js"></script>
 	<script src="testrunner.js"></script>
 	<script src="objects/Particle.js"></script>
 	<script src="objects/Bar.js"></script>
@@ -37,53 +39,51 @@
 		var setTimestamp, setTranslate;
 
 		var testSequence = [ 
-			{object: "Particle", maxObjects: 100, type: "canvas", description: "Canvas 2D"},
-			{object: "Particle", maxObjects: 100, type: "svg", description: "SVG with attribute change"},
-			{object: "Particle", maxObjects: 100, type: "svgrebuild", description: "SVG with removing and inserting"},
-			{object: "Particle", maxObjects: 100, type: "svgtransforms", description: "SVG with SVG Transformations"},
-			{object: "Particle", maxObjects: 100, type: "svgcsstransforms", description: "SVG with CSS Transforms (3D)"},
-			{object: "Particle", maxObjects: 100, type: "html", description: "HTML with CSS Transforms (3D)"},
-			{object: "Particle", maxObjects: 250, type: "canvas", description: "Canvas 2D"},
-			{object: "Particle", maxObjects: 250, type: "svg", description: "SVG with attribute change"},
-			{object: "Particle", maxObjects: 250, type: "svgrebuild", description: "SVG with removing and inserting"},
-			{object: "Particle", maxObjects: 250, type: "svgtransforms", description: "SVG with SVG Transformations"},
-			{object: "Particle", maxObjects: 250, type: "svgcsstransforms", description: "SVG with CSS Transforms (3D)"},
-			{object: "Particle", maxObjects: 250, type: "html", description: "HTML with CSS Transforms (3D)"},
-			{object: "Particle", maxObjects: 1000, type: "canvas", description: "Canvas 2D"},
-			{object: "Particle", maxObjects: 1000, type: "svg", description: "SVG with attribute change"},
-			{object: "Particle", maxObjects: 1000, type: "svgrebuild", description: "SVG with removing and inserting"},
-			{object: "Particle", maxObjects: 1000, type: "svgtransforms", description: "SVG with SVG Transformations"},
-			{object: "Particle", maxObjects: 1000, type: "svgcsstransforms", description: "SVG with CSS Transforms (3D)"},
-			{object: "Particle", maxObjects: 1000, type: "html", description: "HTML with CSS Transforms (3D)"},
-			{object: "Particle", maxObjects: 2500, type: "canvas", description: "Canvas 2D"},
-			{object: "Particle", maxObjects: 2500, type: "svg", description: "SVG with attribute change"},
-			{object: "Particle", maxObjects: 2500, type: "svgtransforms", description: "SVG with SVG Transformations"},
-			{object: "Bar", maxObjects: 80, type: "canvas", description: "Canvas 2D"},
-			{object: "Bar", maxObjects: 80, type: "svg", description: "SVG with attribute change"},
-			{object: "Bar", maxObjects: 80, type: "svgtransforms", description: "SVG with SVG Transformations"},
-			{object: "Bar", maxObjects: 80, type: "svganimations", description: "SVG with SVG Animations"},
-			{object: "Bar", maxObjects: 80, type: "html", description: "HTML with CSS Transforms (3D)"},
-			{object: "Bar", maxObjects: 240, type: "canvas", description: "Canvas 2D"},
-			{object: "Bar", maxObjects: 240, type: "svg", description: "SVG with attribute change"},
-			{object: "Bar", maxObjects: 240, type: "svgtransforms", description: "SVG with SVG Transformations"},
-			{object: "Bar", maxObjects: 240, type: "svganimations", description: "SVG with SVG Animations"},
-			{object: "Bar", maxObjects: 240, type: "html", description: "HTML with CSS Transforms (3D)"},
-			{object: "Bar", maxObjects: 800, type: "canvas", description: "Canvas 2D"},
-			{object: "Bar", maxObjects: 800, type: "svg", description: "SVG with attribute change"},
-			{object: "Bar", maxObjects: 800, type: "svgtransforms", description: "SVG with SVG Transformations"},
-			{object: "Bar", maxObjects: 800, type: "svganimations", description: "SVG with SVG Animations"},
-			{object: "Bar", maxObjects: 800, type: "html", description: "HTML with CSS Transforms (3D)"}
+			{object: "Particle", maxObjects: 100, type: "canvas", description: "Canvas 2D", required: "canvas"},
+			{object: "Particle", maxObjects: 100, type: "svg", description: "SVG with attribute change", required: "svg"},
+			{object: "Particle", maxObjects: 100, type: "svgrebuild", description: "SVG with removing and inserting", required: "svg"},
+			{object: "Particle", maxObjects: 100, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg"},
+			{object: "Particle", maxObjects: 100, type: "svgcsstransforms", description: "SVG with CSS Transforms (3D)", required: "svg, csstransforms"},
+			{object: "Particle", maxObjects: 100, type: "html", description: "HTML with CSS Transforms (3D)", required: "svg"},
+			{object: "Particle", maxObjects: 250, type: "canvas", description: "Canvas 2D", required: "svg"},
+			{object: "Particle", maxObjects: 250, type: "svg", description: "SVG with attribute change", required: "svg"},
+			{object: "Particle", maxObjects: 250, type: "svgrebuild", description: "SVG with removing and inserting", required: "svg"},
+			{object: "Particle", maxObjects: 250, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg"},
+			{object: "Particle", maxObjects: 250, type: "svgcsstransforms", description: "SVG with CSS Transforms (3D)", required: "svg"},
+			{object: "Particle", maxObjects: 250, type: "html", description: "HTML with CSS Transforms (3D)", required: "svg"},
+			{object: "Particle", maxObjects: 1000, type: "canvas", description: "Canvas 2D", required: "svg"},
+			{object: "Particle", maxObjects: 1000, type: "svg", description: "SVG with attribute change", required: "svg"},
+			{object: "Particle", maxObjects: 1000, type: "svgrebuild", description: "SVG with removing and inserting", required: "svg"},
+			{object: "Particle", maxObjects: 1000, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg"},
+			{object: "Particle", maxObjects: 1000, type: "svgcsstransforms", description: "SVG with CSS Transforms (3D)", required: "svg"},
+			{object: "Particle", maxObjects: 1000, type: "html", description: "HTML with CSS Transforms (3D)", required: "svg"},
+			{object: "Particle", maxObjects: 2500, type: "canvas", description: "Canvas 2D", required: "svg"},
+			{object: "Particle", maxObjects: 2500, type: "svg", description: "SVG with attribute change", required: "svg"},
+			{object: "Particle", maxObjects: 2500, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg"},
+			{object: "Bar", maxObjects: 80, type: "canvas", description: "Canvas 2D", required: "svg"},
+			{object: "Bar", maxObjects: 80, type: "svg", description: "SVG with attribute change", required: "svg"},
+			{object: "Bar", maxObjects: 80, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg"},
+			{object: "Bar", maxObjects: 80, type: "svganimations", description: "SVG with SVG Animations", required: "svg"},
+			{object: "Bar", maxObjects: 80, type: "html", description: "HTML with CSS Transforms (3D)", required: "svg"},
+			{object: "Bar", maxObjects: 240, type: "canvas", description: "Canvas 2D", required: "svg"},
+			{object: "Bar", maxObjects: 240, type: "svg", description: "SVG with attribute change", required: "svg"},
+			{object: "Bar", maxObjects: 240, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg"},
+			{object: "Bar", maxObjects: 240, type: "svganimations", description: "SVG with SVG Animations", required: "svg"},
+			{object: "Bar", maxObjects: 240, type: "html", description: "HTML with CSS Transforms (3D)", required: "svg"},
+			{object: "Bar", maxObjects: 800, type: "canvas", description: "Canvas 2D", required: "svg"},
+			{object: "Bar", maxObjects: 800, type: "svg", description: "SVG with attribute change", required: "svg"},
+			{object: "Bar", maxObjects: 800, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg"},
+			{object: "Bar", maxObjects: 800, type: "svganimations", description: "SVG with SVG Animations", required: "svg"},
+			{object: "Bar", maxObjects: 800, type: "html", description: "HTML with CSS Transforms (3D)", required: "svg"}
 		];
 
 		var currentTest = 0,
 		testDuration = 300,
 		stageWidth = 800,
 		stageHeight= 600,
-		tick = null,
-		stageElements = [],
 		stage = document.getElementById('stage'),
-		context = null, svg = null, previousTimeStamp = null, framesPainted = 0,
-		svg_ns = "http://www.w3.org/2000/svg", statistics = new Statistics(), breakUnderFPS = 20, breakImmediatly = 10, stopAfterBreaks = 2;
+		statistics, stageObject, breakUnderFPS = 20, breakImmediatly = 10, stopAfterBreaks = 2,
+		context = null, svg = null, svg_ns = "http://www.w3.org/2000/svg";
 
 		
 
@@ -102,7 +102,12 @@
 		}
 
 		function load() {
-        	prepareStage(testSequence[currentTest].type);
+			statistics = new Statistics();
+			stageObject = new Stage(stage, statistics);
+			var runner = new TestRunner(testSequence,stageObject);
+			runner.checkSystemCapabilities();
+			runner.run();
+			
       	}
       	window.onload = load;
 
