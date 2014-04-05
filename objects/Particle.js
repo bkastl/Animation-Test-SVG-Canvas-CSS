@@ -23,7 +23,7 @@ switch (type) {
 	domNode.setAttribute("fill", color);
 	break;
 	case "html":
-	
+	case "htmlposition":
 	var domNode = document.createElement('div');
 	
 	domNode.style.width = diameter*2 + 'px';
@@ -121,6 +121,11 @@ this.draw = function (timeOffset) {
 		domNode.style.webkitTransform = setTranslate(translateX,translateY);
 		domNode.style.mozTransform = setTranslate(translateX,translateY);
 		domNode.style.transform = setTranslate(translateX,translateY);
+		break;
+
+		case "htmlposition":
+		domNode.style.top = nextY + 'px';
+		domNode.style.left = nextX + 'px';
 		break;
 
 		case "svgrebuild":

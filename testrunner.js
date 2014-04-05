@@ -1,10 +1,27 @@
 function TestRunner(sequence, stageObject) {
+	var hash = window.location.hash;
 
+	function parseHash(hash) {
+		/*allow skipping of tests*/
+		//Syntax :#tests=al
+		//#tests=svg,canvas,etc.
+		//#object=all
+	}
 	
 	function clearSequence(key) {
 		var i=0;
 		while ( i < sequence.length) {
 			if (sequence[i].required.indexOf(key) != -1) {
+				sequence.splice(i,1)
+			}
+			++i;
+		}
+	}
+
+	function clearObjects(key) {
+		var i=0;
+		while ( i < sequence.length) {
+			if (sequence[i].object.indexOf(key) != -1) {
 				sequence.splice(i,1)
 			}
 			++i;

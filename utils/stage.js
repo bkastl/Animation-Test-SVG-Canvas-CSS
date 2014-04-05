@@ -28,6 +28,7 @@ function Stage(stage, statistics) {
 				
 			break;
 			case "html":
+			case "htmlposition":
 				stage.style.width = stageWidth + 'px';
 				stage.style.height = stageHeight + 'px';
 			break;
@@ -57,6 +58,9 @@ function Stage(stage, statistics) {
 				break;
 				case 'Bar':
 					stageElements.push(new Bar(currentType,testSequence[currentTest].maxObjects,i));
+				break;
+				case 'Pie':
+					stageElements.push(new Pie(currentType,testSequence[currentTest].maxObjects,i));
 				break;
 			}
 			
@@ -134,7 +138,7 @@ function Stage(stage, statistics) {
 		while (stage.hasChildNodes()) {
 			stage.removeChild(stage.lastChild);
 		}
-		framesPainted = 0, context = null, svg = null, previousTimeStamp = null, stageElements = [];
+		framesPainted = 0, context = null, svg = null, previousTimeStamp = null, stageElements = [], webglRenderer = null;
 	}
 
 }
