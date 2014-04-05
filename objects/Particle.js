@@ -36,6 +36,18 @@ switch (type) {
 	domNode.id = uid;
 	stage.appendChild(domNode);
 	break;
+
+	case "webgl":
+	var el = new PIXI.Graphics();
+	el.lineStyle(0);
+	el.beginFill('0x' + color.substr(1,color.length), 1);
+	el.drawCircle(x-diameter*0.5,y-diameter*0.5, diameter);
+	el.cacheAsBitmap = true;
+	
+
+	context.addChild(el);
+	break;
+
 }
 
 this.draw = function (timeOffset) {
@@ -89,6 +101,10 @@ this.draw = function (timeOffset) {
 		context.beginPath();
 		context.arc(nextX, nextY, diameter, 0, Math.PI * 2, true);
 		context.fill();
+		break;
+		case "webgl":
+		el.position.x = nextX -diameter;
+		el.position.y = nextY -diameter;
 		break;
 		case "svg":
 		domNode.setAttribute("cx", nextX + diameter);

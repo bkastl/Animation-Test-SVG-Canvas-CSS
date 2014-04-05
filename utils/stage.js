@@ -33,6 +33,12 @@ function Stage(stage, statistics) {
 			break;
 			case "webgl":
 
+				context = new PIXI.Stage(0xFFFFFF, true);
+				
+				webglRenderer = PIXI.autoDetectRenderer(stageWidth, stageHeight, null, true);
+				webglRenderer.view.style.display = "block";
+				
+				stage.appendChild(webglRenderer.view);
 			break;
 		}
 
@@ -86,12 +92,17 @@ function Stage(stage, statistics) {
 					svg.removeChild(svg.lastChild);
 				}
 			break;
+			case 'webgl':
+				webglRenderer.render(context);
+			
+			break;
 			
 		}
 		for (var stageElement in stageElements)
 		{
 			stageElements[stageElement].draw(timeOffset);
 		}
+
 		
 		var paintTime = setTimestamp() - frameStartTimeStamp;
 		

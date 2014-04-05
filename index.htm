@@ -27,6 +27,7 @@
 		<p>Frames remaining: <span id="remainingFrames"></span> <span id="skippedFrames"></span></p>
 	</div>
 	<script src="vendor/modernizr.min.js"></script>
+	<script src="vendor/pixi.js"></script>
 	<script src="utils/polyfills.js"></script>
 	<script src="utils/utils.js"></script>
 	<script src="utils/statistics.js"></script>
@@ -39,7 +40,7 @@
 		var setTimestamp, setTranslate;
 
 		var testSequence = [ 
-			{object: "Particle", maxObjects: 100, type: "canvas", description: "Canvas 2D", required: "canvas"},
+			{object: "Particle", maxObjects: 100, type: "svg", description: "Canvas 2D", required: "canvas"},
 			{object: "Particle", maxObjects: 100, type: "svg", description: "SVG with attribute change", required: "svg"},
 			{object: "Particle", maxObjects: 100, type: "svgrebuild", description: "SVG with removing and inserting", required: "svg"},
 			{object: "Particle", maxObjects: 100, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg"},
@@ -60,6 +61,10 @@
 			{object: "Particle", maxObjects: 2500, type: "canvas", description: "Canvas 2D", required: "svg"},
 			{object: "Particle", maxObjects: 2500, type: "svg", description: "SVG with attribute change", required: "svg"},
 			{object: "Particle", maxObjects: 2500, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg"},
+
+			{object: "Particle", maxObjects: 1000, type: "webgl", description: "Canvas (WebGL", required: "webgl, canvas"},
+			{object: "Particle", maxObjects: 2500, type: "webgl", description: "Canvas (WebGL", required: "webgl, canvas"},
+			{object: "Particle", maxObjects: 5000, type: "webgl", description: "Canvas (WebGL", required: "webgl, canvas"},
 			{object: "Bar", maxObjects: 80, type: "canvas", description: "Canvas 2D", required: "svg"},
 			{object: "Bar", maxObjects: 80, type: "svg", description: "SVG with attribute change", required: "svg"},
 			{object: "Bar", maxObjects: 80, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg"},
@@ -83,7 +88,7 @@
 		stageHeight= 600,
 		stage = document.getElementById('stage'),
 		statistics, stageObject, breakUnderFPS = 20, breakImmediatly = 10, stopAfterBreaks = 2,
-		context = null, svg = null, svg_ns = "http://www.w3.org/2000/svg";
+		context = null, svg = null, svg_ns = "http://www.w3.org/2000/svg", webglRenderer;
 
 		
 
@@ -102,6 +107,7 @@
 		}
 
 		function load() {
+	
 			statistics = new Statistics();
 			stageObject = new Stage(stage, statistics);
 			var runner = new TestRunner(testSequence,stageObject);

@@ -4,7 +4,7 @@ function Bar(type, count, i) {
 	color = getRandomColorHex(), uid = generateUID(),
 	height = 0,
 	maxV = 5,
-	velocity = maxV - Math.random()*5 + 1, number = i
+	velocity = maxV - Math.random()*5 + 1, number = i,
 	x = number*width,
 	y = stageHeight - height,
 	startPercentage = 0;
@@ -86,6 +86,16 @@ function Bar(type, count, i) {
 		domNode.id = uid;
 		stage.appendChild(domNode);
 		break;
+		case "webgl":
+		var el = new PIXI.Graphics();
+		el.beginFill('0x' + color.substr(1,color.length), 1);
+		el.drawRect(x,0, width,stageHeight);
+		el.scale.y = 0;
+		el.generateTexture();
+		el.endFill();
+
+		context.addChild(el);
+		break;
 	}
 
 	 this.draw = function() {
@@ -121,6 +131,10 @@ function Bar(type, count, i) {
 				break;
 				case "svganimations":
 					/*Nothing to do */
+				break;
+				case "webgl":
+				el.scale.y = nextPercentage;
+				el.y = nextY;
 				break;
 			}
 			y = nextY;
