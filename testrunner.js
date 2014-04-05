@@ -186,7 +186,8 @@ function Statistics() {
 		
 	},
 	this.endTest = function() {
-		
+		var testavgFPS = sumFPS/fpsSamples;
+		if (isNaN(testavgFPS)) {testavgFPS = 0;}
 		var testResult = {
 			testNumber: currentTest,
 			minMS: minMS,
@@ -194,7 +195,7 @@ function Statistics() {
 			sumMS: sumMS,
 			minFPS: minFPS,
 			maxFPS: maxFPS,
-			avgFPS: sumFPS/fpsSamples,
+			avgFPS: testavgFPS,
 			testDidNotFinish: didbreak
 		};
 		
