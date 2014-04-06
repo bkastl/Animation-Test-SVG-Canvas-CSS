@@ -50,8 +50,8 @@ function TestRunner(sequence, stageObject) {
 		}
 	}
 	this.run = function() {
-
-        stageObject.prepareStage(sequence[currentTest].type);
+		
+        stageObject.prepareStage(sequence[currentTest].type, sequence[currentTest].offscreen);
 	}
 }
 

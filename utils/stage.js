@@ -2,7 +2,7 @@ function Stage(stage, statistics) {
 	var self = this,
 	tick = null, 
 	previousTimeStamp = null, framesPainted = 0, stageElements = [];
-	this.prepareStage = function (type) {
+	this.prepareStage = function (type, offscreen) {
 		framesPainted = 0;
 		currentType = type;
 		
@@ -41,6 +41,12 @@ function Stage(stage, statistics) {
 				
 				stage.appendChild(webglRenderer.view);
 			break;
+		}
+		if (offscreen) {
+			stage.style.visibility = "hidden";
+		}
+		else {
+			stage.style.visibility = "visible";
 		}
 
 		this.buildStage();
@@ -127,7 +133,7 @@ function Stage(stage, statistics) {
 			statistics.endTest();
 			++currentTest;
 			if (currentTest < testSequence.length) {
-				self.prepareStage(testSequence[currentTest].type);
+				self.prepareStage(testSequence[currentTest].type, testSequence[currentTest].offscreen);
 			}
 			else {
 				statistics.send();

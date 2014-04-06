@@ -24,6 +24,9 @@ function Statistics() {
 		currentTestNumber.innerHTML = currentTest+1, remainingFramesTest = testDuration;
 		totalTests.innerHTML = testSequence.length;
 		fpsNode.innerHTML = 'Calculating Frames...';
+		if (testSequence[currentTest].offscreen) {
+			currentTestNode.innerHTML = currentTestNode.innerHTML + " Offscreen Test, no Test result visible";
+		}
 	},
 	this.update = function(frameTime) {
 		minMS = Math.min(minMS, frameTime);
