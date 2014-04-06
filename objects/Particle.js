@@ -118,9 +118,7 @@ this.draw = function (timeOffset) {
 		case "svgcsstransforms":
 		var translateX = (nextX-startX);
 		var translateY = (nextY-startY);
-		domNode.style.webkitTransform = setTranslate(translateX,translateY);
-		domNode.style.mozTransform = setTranslate(translateX,translateY);
-		domNode.style.transform = setTranslate(translateX,translateY);
+		domNode.style[Modernizr.prefixed('transform')] = setTranslate(translateX,translateY);
 		break;
 
 		case "htmlposition":

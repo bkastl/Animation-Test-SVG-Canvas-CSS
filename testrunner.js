@@ -48,9 +48,17 @@ function TestRunner(sequence, stageObject) {
 		if (!Modernizr.csstransforms && !Modernizr.csstransforms3d) {
 			clearSequence('csstransforms');
 		}
+
+		if (!Modernizr.csstransitions) {
+			clearSequence('csstransitions');
+		}
+
+		if (!Modernizr.cssanimations) {
+			clearSequence('cssanimations');
+		}
 	}
 	this.run = function() {
-		
+
         stageObject.prepareStage(sequence[currentTest].type, sequence[currentTest].offscreen);
 	}
 }

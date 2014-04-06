@@ -29,6 +29,8 @@ function Stage(stage, statistics) {
 			break;
 			case "html":
 			case "htmlposition":
+			case "htmltransition":
+			case "htmlanimation":
 				stage.style.width = stageWidth + 'px';
 				stage.style.height = stageHeight + 'px';
 			break;

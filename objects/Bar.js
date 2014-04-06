@@ -7,7 +7,8 @@ function Bar(type, count, i) {
 	velocity = maxV - Math.random()*5 + 1, number = i,
 	x = number*width,
 	y = stageHeight - height,
-	startPercentage = 0;
+	startPercentage = 0,
+	animationDuration =(maxHeight/velocity/60) +'s', start = true, triggerNextFrame = false, blockNextFrame = false;
 	
 	switch (type) {
 		case "svg":
@@ -44,6 +45,7 @@ function Bar(type, count, i) {
 		domNode.style['-webkit-transform-origin-y'] = "100%";
 		domNode.style['-moz-transform-origin-y'] = "100%";
 		domNode.style['transform-origin-y'] = "100%";
+		
 		break;
 
 		case "svganimations":
@@ -55,7 +57,6 @@ function Bar(type, count, i) {
 		domNode.setAttribute("x", x);
 		domNode.setAttribute("y", y);
 		domNode.setAttribute("fill", color);
-		var animationDuration =(maxHeight/velocity/60) +'s';
 		
 		var animationNodeHeight = document.createElementNS(svg_ns, "animate");
 		animationNodeHeight.setAttribute("attributeName","height");
@@ -83,6 +84,41 @@ function Bar(type, count, i) {
 		domNode.style['-webkit-transform-origin-y'] = "100%";
 		domNode.style['-moz-transform-origin-y'] = "100%";
 		domNode.style['transform-origin-y'] = "100%";
+	
+		domNode.id = uid;
+		stage.appendChild(domNode);
+		break;
+		case "htmltransition":
+		var domNode = document.createElement('div');
+		domNode.style.width = width + 'px';
+		domNode.style.height = maxHeight + 'px';
+		domNode.style.backgroundColor = color;
+		domNode.style.top = 0 + 'px';
+		domNode.style.left = x + 'px';
+		domNode.style['-webkit-transform-origin-y'] = "100%";
+		domNode.style['-moz-transform-origin-y'] = "100%";
+		domNode.style['transform-origin-y'] = "100%";
+		
+
+		domNode.style[Modernizr.prefixed('transition')] = "all "+animationDuration+ " linear";
+		domNode.className = "blocktransition";
+		domNode.style[Modernizr.prefixed('transform')] = 'scaleY(0)';
+		domNode.id = uid;
+		stage.appendChild(domNode);
+		break;
+		case "htmlanimation":
+		var domNode = document.createElement('div');
+		domNode.style.width = width + 'px';
+		domNode.style.height = maxHeight + 'px';
+		domNode.style.backgroundColor = color;
+		domNode.style.top = 0 + 'px';
+		domNode.style.left = x + 'px';
+		domNode.className = "bar-animation";
+		domNode.style['-webkit-transform-origin-y'] = "100%";
+		domNode.style['-moz-transform-origin-y'] = "100%";
+		domNode.style['transform-origin-y'] = "100%";
+		domNode.style['-webkit-animation'] = "height " +animationDuration +" linear 0s infinite normal";
+		domNode.style['animation'] = "height "+animationDuration +" linear 0s infinite normal";
 		domNode.id = uid;
 		stage.appendChild(domNode);
 		break;
@@ -103,9 +139,11 @@ function Bar(type, count, i) {
 			
 			if (nextHeight > maxHeight) {
 				nextHeight = 0;
-				
 			}
 			var nextY = stageHeight - nextHeight;
+			if(nextY > (stageHeight - velocity)) {
+				blockNextFrame = true;
+			}
 			var nextPercentage = nextHeight/maxHeight;
 			switch(type) {
 
@@ -125,11 +163,31 @@ function Bar(type, count, i) {
 				break;
 				case "html":
 				case "svgcsstransforms":
-				domNode.style.webkitTransform = 'scaleY('+nextPercentage+')';
-				domNode.style.mozTransform = 'scaleY('+nextPercentage+')';
-				domNode.style.transform = 'scaleY('+nextPercentage+')';
+				
+				domNode.style[Modernizr.prefixed('transform')] = 'scaleY('+nextPercentage+')';
+				break;
+				case "htmltransition":
+
+				if (triggerNextFrame) {
+					domNode.className = "";
+					
+					domNode.style[Modernizr.prefixed('transform')] = 'scaleY(1)';
+					triggerNextFrame = false;
+				}
+				if (blockNextFrame) {
+					
+					domNode.style[Modernizr.prefixed('transform')] = 'scaleY(0)';
+					domNode.className = "blocktransition";
+					blockNextFrame = false;
+					triggerNextFrame = true;
+				}
+				if (start) {
+					start = false;
+					triggerNextFrame = true;
+				}
 				break;
 				case "svganimations":
+				case "htmlanimation":
 					/*Nothing to do */
 				break;
 				case "webgl":

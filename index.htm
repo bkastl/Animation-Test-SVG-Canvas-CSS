@@ -10,6 +10,24 @@
 	#stage {
 		position: relative;
 	}
+
+	.blocktransition {
+		-webkit-transition: none !important;
+		transition: none !important;
+	}
+
+	
+
+	@-webkit-keyframes height
+	{
+		from {-webkit-transform: scaleY(0);}
+		to {-webkit-transform: scaleY(1);}
+	}
+	@keyframes height
+	{
+		from {transform: scaleY(0);}
+		to {transform: scaleY(1);}
+	}
 	</style>
 </head>
 <body>
@@ -80,17 +98,21 @@
 			{object: "Bar", maxObjects: 80, type: "svg", description: "SVG with attribute change", required: "svg"},
 			{object: "Bar", maxObjects: 80, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg"},
 			{object: "Bar", maxObjects: 80, type: "svganimations", description: "SVG with SVG Animations", required: "svg, smil"},
-			{object: "Bar", maxObjects: 80, type: "html", description: "HTML with CSS Transforms (3D)", required: "svg, csstransforms"},
+			{object: "Bar", maxObjects: 80, type: "html", description: "HTML with CSS Transforms (3D)", required: "csstransforms"},
+			{object: "Bar", maxObjects: 80, type: "htmltransition", description: "HTML with CSS Transitions", required: "csstransitions"},
+			{object: "Bar", maxObjects: 80, type: "htmlanimation", description: "HTML with CSS Animations", required: "cssanimations"},
 			{object: "Bar", maxObjects: 240, type: "canvas", description: "Canvas 2D", required: "canvas"},
 			{object: "Bar", maxObjects: 240, type: "svg", description: "SVG with attribute change", required: "svg"},
 			{object: "Bar", maxObjects: 240, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg"},
 			{object: "Bar", maxObjects: 240, type: "svganimations", description: "SVG with SVG Animations", required: "svg, smil"},
-			{object: "Bar", maxObjects: 240, type: "html", description: "HTML with CSS Transforms (3D)", required: "svg, csstransforms"},
+			{object: "Bar", maxObjects: 240, type: "html", description: "HTML with CSS Transforms (3D)", required: "csstransforms"},
+			{object: "Bar", maxObjects: 240, type: "htmltransition", description: "HTML with CSS Transitions", required: "csstransitions"},
+			{object: "Bar", maxObjects: 240, type: "htmlanimation", description: "HTML with CSS Animations", required: "cssanimations"},
 			{object: "Bar", maxObjects: 800, type: "canvas", description: "Canvas 2D", required: "canvas"},
 			{object: "Bar", maxObjects: 800, type: "svg", description: "SVG with attribute change", required: "svg"},
 			{object: "Bar", maxObjects: 800, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg"},
 			{object: "Bar", maxObjects: 800, type: "svganimations", description: "SVG with SVG Animations", required: "svg, smil"},
-			{object: "Bar", maxObjects: 800, type: "html", description: "HTML with CSS Transforms (3D)", required: "svg"},
+			{object: "Bar", maxObjects: 800, type: "html", description: "HTML with CSS Transforms (3D)", required: "csstransforms"},
 			{object: "Pie", maxObjects: 100, type: "canvas", description: "Canvas 2D", required: "canvas"},
 			{object: "Pie", maxObjects: 100, type: "svg", description: "SVG with attribute chnage", required: "svg"},
 			{object: "Pie", maxObjects: 250, type: "canvas", description: "Canvas 2D", required: "canvas"},
@@ -98,7 +120,7 @@
 			{object: "Pie", maxObjects: 1000, type: "canvas", description: "Canvas 2D", required: "canvas"},
 			{object: "Pie", maxObjects: 1000, type: "svg", description: "SVG with attribute chnage", required: "svg"}
 		];
-
+		//testSequence = [{object: "Bar", maxObjects: 24, type: "html", description: "Canvas 2D", required: "canvas"}];
 		var currentTest = 0,
 		testDuration = 500,
 		stageWidth = 800,
