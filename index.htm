@@ -54,7 +54,7 @@
 	<script src="objects/Particle.js"></script>
 	<script src="objects/Bar.js"></script>
 	<script src="objects/Pie.js"></script>
-		
+	<script src="objects/Line.js"></script>
 	<script>
 		var setTimestamp, setTranslate;
 
@@ -74,13 +74,13 @@
 			{object: "Particle", maxObjects: 250, type: "svgcsstransforms", description: "SVG with CSS Transforms (3D)", required: "svg,csstransforms"},
 			{object: "Particle", maxObjects: 250, type: "html", description: "HTML with CSS Transforms (3D)", required: "csstransforms"},
 			{object: "Particle", maxObjects: 250, type: "htmlposition", description: "HTML with CSS Positioning", required: null},
-			{object: "Particle", maxObjects: 250, type: "canvas", description: "Canvas 2D", required: "canvas", offscreen: true},
-			{object: "Particle", maxObjects: 250, type: "svg", description: "SVG with attribute change", required: "svg", offscreen: true},
-			{object: "Particle", maxObjects: 250, type: "svgrebuild", description: "SVG with removing and inserting", required: "svg", offscreen: true},
-			{object: "Particle", maxObjects: 250, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg", offscreen: true},
-			{object: "Particle", maxObjects: 250, type: "svgcsstransforms", description: "SVG with CSS Transforms (3D)", required: "svg,csstransforms", offscreen: true},
-			{object: "Particle", maxObjects: 250, type: "html", description: "HTML with CSS Transforms (3D)", required: "csstransforms", offscreen: true},
-			{object: "Particle", maxObjects: 250, type: "htmlposition", description: "HTML with CSS Positioning", required: null, offscreen: true},
+			{object: "Particle", maxObjects: 1000, type: "canvas", description: "Canvas 2D", required: "canvas", offscreen: true},
+			{object: "Particle", maxObjects: 1000, type: "svg", description: "SVG with attribute change", required: "svg", offscreen: true},
+			{object: "Particle", maxObjects: 1000, type: "svgrebuild", description: "SVG with removing and inserting", required: "svg", offscreen: true},
+			{object: "Particle", maxObjects: 1000, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg", offscreen: true},
+			{object: "Particle", maxObjects: 1000, type: "svgcsstransforms", description: "SVG with CSS Transforms (3D)", required: "svg,csstransforms", offscreen: true},
+			{object: "Particle", maxObjects: 1000, type: "html", description: "HTML with CSS Transforms (3D)", required: "csstransforms", offscreen: true},
+			{object: "Particle", maxObjects: 1000, type: "htmlposition", description: "HTML with CSS Positioning", required: null, offscreen: true},
 			{object: "Particle", maxObjects: 1000, type: "canvas", description: "Canvas 2D", required: "canvas"},
 			{object: "Particle", maxObjects: 1000, type: "svg", description: "SVG with attribute change", required: "svg"},
 			{object: "Particle", maxObjects: 1000, type: "svgrebuild", description: "SVG with removing and inserting", required: "svg"},
@@ -108,11 +108,13 @@
 			{object: "Bar", maxObjects: 240, type: "html", description: "HTML with CSS Transforms (3D)", required: "csstransforms"},
 			{object: "Bar", maxObjects: 240, type: "htmltransition", description: "HTML with CSS Transitions", required: "csstransitions"},
 			{object: "Bar", maxObjects: 240, type: "htmlanimation", description: "HTML with CSS Animations", required: "cssanimations"},
+			{object: "Bar", maxObjects: 240, type: "webgl", description: "Canvas (WebGL)", required: "canvas, webgl"},
 			{object: "Bar", maxObjects: 800, type: "canvas", description: "Canvas 2D", required: "canvas"},
 			{object: "Bar", maxObjects: 800, type: "svg", description: "SVG with attribute change", required: "svg"},
 			{object: "Bar", maxObjects: 800, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg"},
 			{object: "Bar", maxObjects: 800, type: "svganimations", description: "SVG with SVG Animations", required: "svg, smil"},
 			{object: "Bar", maxObjects: 800, type: "html", description: "HTML with CSS Transforms (3D)", required: "csstransforms"},
+			{object: "Bar", maxObjects: 800, type: "webgl", description: "Canvas (WebGL)", required: "canvas, webgl"},
 			{object: "Pie", maxObjects: 100, type: "canvas", description: "Canvas 2D", required: "canvas"},
 			{object: "Pie", maxObjects: 100, type: "svg", description: "SVG with attribute chnage", required: "svg"},
 			{object: "Pie", maxObjects: 250, type: "canvas", description: "Canvas 2D", required: "canvas"},
@@ -120,7 +122,7 @@
 			{object: "Pie", maxObjects: 1000, type: "canvas", description: "Canvas 2D", required: "canvas"},
 			{object: "Pie", maxObjects: 1000, type: "svg", description: "SVG with attribute chnage", required: "svg"}
 		];
-		//testSequence = [{object: "Bar", maxObjects: 24, type: "html", description: "Canvas 2D", required: "canvas"}];
+		testSequence = [{object: "Line", maxObjects: 50, type: "svg", description: "Line Test", required: null}];
 		var currentTest = 0,
 		testDuration = 500,
 		stageWidth = 800,

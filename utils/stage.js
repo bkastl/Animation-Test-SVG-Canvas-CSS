@@ -70,6 +70,9 @@ function Stage(stage, statistics) {
 				case 'Pie':
 					stageElements.push(new Pie(currentType,testSequence[currentTest].maxObjects,i));
 				break;
+				case 'Line':
+					stageElements.push(new Line(currentType,testSequence[currentTest].maxObjects,i));
+				break;
 			}
 			
 		}
@@ -131,11 +134,11 @@ function Stage(stage, statistics) {
 	this.endAnimationTest= function() {
 			cancelAnimationFrame(tick);
 			tick = null;
-			clearStage();
+			//clearStage();
 			statistics.endTest();
 			++currentTest;
 			if (currentTest < testSequence.length) {
-				self.prepareStage(testSequence[currentTest].type, testSequence[currentTest].offscreen);
+			//	self.prepareStage(testSequence[currentTest].type, testSequence[currentTest].offscreen);
 			}
 			else {
 				statistics.send();

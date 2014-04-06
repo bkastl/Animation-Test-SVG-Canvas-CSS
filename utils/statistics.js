@@ -86,6 +86,8 @@ function Statistics() {
 			passedTests.push(currentTest);
 		}
 		testResults.push(testResult);
+
+		/*Todo update more information in testresults */
 		
 	},
 	this.send = function() {
