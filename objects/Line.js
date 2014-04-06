@@ -6,7 +6,7 @@ function Line(type, count, i) {
 	velocity = Math.round(maxV - Math.random()*maxV + 1), 
 	value = Math.round(Math.random()*maximumHeight),
 	values = [],
-	direction = Math.floor(Math.random()*2) == 1 ? 1 : -1, step = 0;
+	direction = Math.floor(Math.random()*2) == 1 ? 1 : -1, step = 0, xWidth = stageWidth/testDuration;
 	switch (type) {
 	
 		case "svg":
@@ -22,21 +22,30 @@ function Line(type, count, i) {
 	
 	}
 	values.push([step +" "+ value]);
-	console.log(values, number, y, velocity, direction);
-	this.draw = function() {
-
+	while (i<stageWidth) {
+		generateValue();
+		++i;
+	}
+	function generateValue() {
 		var nextValue = value + velocity*direction;
 		if (nextValue > maximumHeight || nextValue < 0) {
 			direction = -direction;
 			velocity = Math.round(maxV - Math.random()*maxV + 1);
 			nextValue = value + velocity*direction;
 		}
-		step +=stageWidth/testDuration;
+		step +=xWidth;
 		values.push([step +" "+ nextValue]);
+		value = nextValue;
+	}
+	this.draw = function() {
+		x += xWidth;
+		
+		values.splice(0,1);
 		switch (type) {
          	case 'svg':
         	case 'svgtransforms':
         	domNode.setAttribute("points",values.join(","));
+        	domNode.setAttribute('transform','translate('+(-x)+','+y+')');
         	break;
 
         	case "canvas":
@@ -48,6 +57,6 @@ function Line(type, count, i) {
         	context.fill();
 			break;
         }
-        value = nextValue;
+        generateValue();
 	}
 }
