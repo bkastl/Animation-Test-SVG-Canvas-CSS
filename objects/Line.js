@@ -6,6 +6,7 @@ function Line(type, count, i) {
 	velocity = Math.round(maxV - Math.random()*maxV + 1), 
 	value = Math.round(Math.random()*maximumHeight),
 	values = [],
+	valuesY = [],
 	direction = Math.floor(Math.random()*2) == 1 ? 1 : -1, step = 0, xWidth = stageWidth/testDuration;
 	switch (type) {
 	
@@ -22,9 +23,11 @@ function Line(type, count, i) {
 	
 	}
 	values.push([step +" "+ value]);
-	while (i<stageWidth) {
+	valuesY.push(value+number*maximumHeight);
+	var j = 0;
+	while (j<stageWidth) {
 		generateValue();
-		++i;
+		++j;
 	}
 	function generateValue() {
 		var nextValue = value + velocity*direction;
@@ -35,12 +38,14 @@ function Line(type, count, i) {
 		}
 		step +=xWidth;
 		values.push([step +" "+ nextValue]);
+		valuesY.push(nextValue+number*maximumHeight);
 		value = nextValue;
 	}
 	this.draw = function() {
 		x += xWidth;
-		
 		values.splice(0,1);
+		valuesY.splice(0,1);
+		console.log(valuesY.length)
 		switch (type) {
          	case 'svg':
         	case 'svgtransforms':
@@ -49,12 +54,16 @@ function Line(type, count, i) {
         	break;
 
         	case "canvas":
+        	
         	context.beginPath();
-        	context.moveTo(x+radius, y+radius);
-        	context.arc(x+radius, y+radius, radius, 0, divisonToRadians, false);
-        	context.closePath();
-        	context.fillStyle = color;
-        	context.fill();
+        	context.moveTo(0, 0);
+        	for (i = 0; i < valuesY.length; i++) {
+        		context.lineTo(i, valuesY[i]);
+          	}
+        	context.lineWidth = 1;
+        	context.strokeStyle = color;
+        	context.stroke();
+
 			break;
         }
         generateValue();
