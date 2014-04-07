@@ -45,7 +45,7 @@ function Line(type, count, i) {
 		x += xWidth;
 		values.splice(0,1);
 		valuesY.splice(0,1);
-		console.log(valuesY.length)
+		
 		switch (type) {
          	case 'svg':
         	case 'svgtransforms':
