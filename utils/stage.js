@@ -20,6 +20,7 @@ function Stage(stage, statistics) {
 			case "svgcsstransforms":
 			case "svganimations":
 			case "svgrebuild":
+			case "svgtransition":
 				svg = document.createElementNS(svg_ns, "svg");
 				svg.id = "svgcontainer";
 				svg.setAttribute("width", stageWidth);
@@ -134,11 +135,11 @@ function Stage(stage, statistics) {
 	this.endAnimationTest= function() {
 			cancelAnimationFrame(tick);
 			tick = null;
-			//clearStage();
+			clearStage();
 			statistics.endTest();
 			++currentTest;
 			if (currentTest < testSequence.length) {
-			//	self.prepareStage(testSequence[currentTest].type, testSequence[currentTest].offscreen);
+				self.prepareStage(testSequence[currentTest].type, testSequence[currentTest].offscreen);
 			}
 			else {
 				statistics.send();

@@ -73,6 +73,25 @@ function Bar(type, count, i) {
 		domNode.appendChild(animationNodeHeight);
 		domNode.appendChild(animationNodeY);
 		break;
+		case "svgtransition":
+		var domNode = document.createElementNS(svg_ns, "rect");
+		svg.appendChild(domNode);
+		domNode.id = uid;
+		domNode.setAttribute("width",width);
+		domNode.setAttribute("height",maxHeight);
+		domNode.setAttribute("x", x);
+		domNode.setAttribute("y", 0);
+		domNode.setAttribute("fill", color);
+		domNode.setAttribute("class", "blocktransition");
+		domNode.style['-webkit-transform-origin-y'] = "100%";
+		domNode.style['-moz-transform-origin-y'] = "100%";
+		domNode.style['transform-origin-y'] = "100%";
+		
+
+		domNode.style[Modernizr.prefixed('transition')] = "all "+animationDuration+ " linear";
+		
+		domNode.style[Modernizr.prefixed('transform')] = 'scaleY(0)';
+		break;
 		case "html":
 		var domNode = document.createElement('div');
 		
@@ -170,7 +189,6 @@ function Bar(type, count, i) {
 
 				if (triggerNextFrame) {
 					domNode.className = "";
-					
 					domNode.style[Modernizr.prefixed('transform')] = 'scaleY(1)';
 					triggerNextFrame = false;
 				}
@@ -178,6 +196,25 @@ function Bar(type, count, i) {
 					
 					domNode.style[Modernizr.prefixed('transform')] = 'scaleY(0)';
 					domNode.className = "blocktransition";
+					blockNextFrame = false;
+					triggerNextFrame = true;
+				}
+				if (start) {
+					start = false;
+					triggerNextFrame = true;
+				}
+				break;
+				case "svgtransition":
+				if (triggerNextFrame) {
+				
+					domNode.removeAttribute("class");
+					domNode.style[Modernizr.prefixed('transform')] = 'scaleY(1)';
+					triggerNextFrame = false;
+				}
+				if (blockNextFrame) {
+					
+					domNode.style[Modernizr.prefixed('transform')] = 'scaleY(0)';
+					domNode.setAttribute("class", "blocktransition");
 					blockNextFrame = false;
 					triggerNextFrame = true;
 				}
