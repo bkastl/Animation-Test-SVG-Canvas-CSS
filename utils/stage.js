@@ -74,6 +74,9 @@ function Stage(stage, statistics) {
 				case 'Line':
 					stageElements.push(new Line(currentType,testSequence[currentTest].maxObjects,i));
 				break;
+				case 'Spinner':
+					stageElements.push(new Spinner(currentType,testSequence[currentTest].maxObjects,i));
+				break;
 			}
 			
 		}

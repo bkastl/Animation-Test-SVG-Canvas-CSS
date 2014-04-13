@@ -9,6 +9,8 @@
 	}
 	#stage {
 		position: relative;
+		width: 800px;
+		height: 600px;
 	}
 
 	.blocktransition {
@@ -55,6 +57,7 @@
 	<script src="objects/Bar.js"></script>
 	<script src="objects/Pie.js"></script>
 	<script src="objects/Line.js"></script>
+	<script src="objects/Spinner.js"></script>
 	<script>
 		var setTimestamp, setTranslate;
 
@@ -122,7 +125,7 @@
 			{object: "Pie", maxObjects: 1000, type: "canvas", description: "Canvas 2D", required: "canvas"},
 			{object: "Pie", maxObjects: 1000, type: "svg", description: "SVG with attribute chnage", required: "svg"}
 		];
-		testSequence = [{object: "Bar", maxObjects: 15, type: "svgtransition", description: "Line Test", required: null}];
+		testSequence = [{object: "Spinner", maxObjects: 500, type: "canvasmulti", description: "Line Test", required: null}];
 		var currentTest = 0,
 		testDuration = 500,
 		stageWidth = 800,
@@ -148,7 +151,7 @@
 		}
 
 		function load() {
-	
+			
 			statistics = new Statistics();
 			stageObject = new Stage(stage, statistics);
 			var runner = new TestRunner(testSequence,stageObject);

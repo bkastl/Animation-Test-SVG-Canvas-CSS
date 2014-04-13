@@ -17,6 +17,14 @@ function getRandomColorHex() {
 	return color;
 }
 
+function getRandomColorRGB() {
+	return [Math.round(Math.random() * 256), Math.round(Math.random() * 256), Math.round(Math.random() * 256)];
+}
+
+function to_rad(deg) {
+    return deg * Math.PI / 180;
+}
+
 function generateUID() {
 	var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
 	var uid = '';
