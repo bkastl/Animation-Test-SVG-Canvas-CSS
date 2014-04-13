@@ -12,6 +12,8 @@ function Spinner(type, count, i) {
 	x = elementInRow * size * 2;
 	y = row * size * 2;
 	
+	var animationDuration = durationStep*steps /60;
+
 	switch(type) {
 		case "canvas":
 			var canvas = document.createElement("canvas");
@@ -24,6 +26,8 @@ function Spinner(type, count, i) {
 		break;
 		case "svg":
 		case "svgtransforms":
+		case "svganimations":
+		case "svgtransitions":
 			var svg = document.createElementNS(svg_ns, "svg");
 			svg.id = uid;
 			svg.setAttribute("width", size);
@@ -33,8 +37,22 @@ function Spinner(type, count, i) {
 			svg.appendChild(svgGroup);
 			paintSpinnerFrame();
 		break;
+
 	}
 	
+	if (type === "svganimations") {
+		paintSpinnerFrame();
+		var animationNodeR = document.createElementNS(svg_ns, "animateTransform");
+		animationNodeR.setAttribute("attributeName","transform");
+		animationNodeR.setAttribute('type',"rotate");
+		animationNodeR.setAttribute('attributeType','xml');
+		animationNodeR.setAttribute("from","0 "+(size/2)+" "+(size/2));
+		animationNodeR.setAttribute("to","360 "+(size/2)+" "+(size/2));
+		animationNodeR.setAttribute("dur",animationDuration + 's');
+		animationNodeR.setAttribute("repeatCount","indefinite");
+		svgGroup.appendChild(animationNodeR);
+		
+	}
 
 
 	function paintSpinnerFrame() {
@@ -44,7 +62,7 @@ function Spinner(type, count, i) {
 	        rotAnglePaint;
 	       var paintIndex = 0;
 	      
-	       if (type === "canvasmulti") {
+	       if (type === "canvas") {
 	       		ctx.clearRect( - size / 2, -size / 2, size, size);
 	   		}
 	       offsetIndex++;
@@ -57,6 +75,8 @@ function Spinner(type, count, i) {
 				switch (type) {
 					case "svg":
 					case "svgtransforms":
+					case "svganimations":
+					case "svgtransitions":
 					var domNode = document.createElementNS(svg_ns, "line");
 					svgGroup.appendChild(domNode);
 					domNode.setAttribute("stroke", 'rgb('+fillColR+','+fillColG+','+fillColB+')');
@@ -97,7 +117,6 @@ function Spinner(type, count, i) {
 	this.draw = function() {
 		var rotAngle = (360 / steps * runnerIndex);
 
-	
 		
 		switch (type) {
 			case 'svg':
