@@ -12,7 +12,8 @@ function Spinner(type, count, i) {
 	x = elementInRow * size * 2;
 	y = row * size * 2;
 	
-	var animationDuration = durationStep*steps /60;
+	var animationDuration = durationStep*steps /60 + 's';
+	
 
 	switch(type) {
 		case "canvas":
@@ -27,7 +28,7 @@ function Spinner(type, count, i) {
 		case "svg":
 		case "svgtransforms":
 		case "svganimations":
-		case "svgtransitions":
+		case "htmlanimation":
 			var svg = document.createElementNS(svg_ns, "svg");
 			svg.id = uid;
 			svg.setAttribute("width", size);
@@ -37,6 +38,7 @@ function Spinner(type, count, i) {
 			svg.appendChild(svgGroup);
 			paintSpinnerFrame();
 		break;
+
 
 	}
 	
@@ -48,10 +50,18 @@ function Spinner(type, count, i) {
 		animationNodeR.setAttribute('attributeType','xml');
 		animationNodeR.setAttribute("from","0 "+(size/2)+" "+(size/2));
 		animationNodeR.setAttribute("to","360 "+(size/2)+" "+(size/2));
-		animationNodeR.setAttribute("dur",animationDuration + 's');
+		animationNodeR.setAttribute("dur",animationDuration);
 		animationNodeR.setAttribute("repeatCount","indefinite");
 		svgGroup.appendChild(animationNodeR);
 		
+	}
+
+	else if (type === "htmlanimation") {
+		svgGroup.style['-webkit-transform-origin'] = "50% 50%";
+		svgGroup.style['-moz-transform-origin'] = "50% 50%";
+		svgGroup.style['transform-origin'] = "50% 50%";
+		svgGroup.style['-webkit-animation'] = "rotate " +animationDuration +" linear 0s infinite normal";
+		svgGroup.style['animation'] = "rotate "+animationDuration +" linear 0s infinite normal";
 	}
 
 
@@ -77,6 +87,7 @@ function Spinner(type, count, i) {
 					case "svgtransforms":
 					case "svganimations":
 					case "svgtransitions":
+					case "htmlanimation":
 					var domNode = document.createElementNS(svg_ns, "line");
 					svgGroup.appendChild(domNode);
 					domNode.setAttribute("stroke", 'rgb('+fillColR+','+fillColG+','+fillColB+')');
