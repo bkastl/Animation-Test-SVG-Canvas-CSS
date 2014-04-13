@@ -138,14 +138,14 @@ function Stage(stage, statistics) {
 	this.endAnimationTest= function() {
 			cancelAnimationFrame(tick);
 			tick = null;
-			clearStage();
+			//clearStage();
 			statistics.endTest();
 			++currentTest;
 			if (currentTest < testSequence.length) {
 				self.prepareStage(testSequence[currentTest].type, testSequence[currentTest].offscreen);
 			}
 			else {
-				statistics.send();
+				//statistics.send();
 			}
 	}
 
