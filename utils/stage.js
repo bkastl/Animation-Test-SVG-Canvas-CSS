@@ -1,11 +1,17 @@
 function Stage(stage, statistics) {
 	var self = this,
 	tick = null, 
-	previousTimeStamp = null, framesPainted = 0, stageElements = [];
-	this.prepareStage = function (type, offscreen) {
+	previousTimeStamp = null, framesPainted = 0, stageElements = [], individualObjects = false;
+	this.prepareStage = function (type, offscreen, createIndividualElements) {
 		framesPainted = 0;
 		currentType = type;
-		
+		if (createIndividualElements != undefined) {
+			individualObjects = createIndividualElements;
+		}
+		else {
+			individualObjects = false;
+		}
+		if (!individualObjects) {
 		switch(type) {
 			case "canvas":
 				var canvas = document.createElement("canvas");
@@ -45,6 +51,7 @@ function Stage(stage, statistics) {
 				stage.appendChild(webglRenderer.view);
 			break;
 		}
+		}
 		if (offscreen) {
 			stage.style.visibility = "hidden";
 		}
@@ -57,7 +64,7 @@ function Stage(stage, statistics) {
 		
 	},
 
-	this.buildStage = function() {
+	this.buildStage = function(createIndividualElements) {
 		
 		for (var i = 0; i < testSequence[currentTest].maxObjects; i++)
 		{	
@@ -101,7 +108,7 @@ function Stage(stage, statistics) {
 		{
 			timeOffset = 0;
 		}
-		
+		if (!individualObjects) {
 		switch(currentType) {
 			case 'canvas':
 				context.clearRect(0, 0, stageWidth, stageHeight);
@@ -116,6 +123,7 @@ function Stage(stage, statistics) {
 			
 			break;
 			
+		}
 		}
 		for (var stageElement in stageElements)
 		{

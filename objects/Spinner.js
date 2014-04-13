@@ -13,7 +13,7 @@ function Spinner(type, count, i) {
 	y = row * size * 2;
 	
 	switch(type) {
-		case "canvasmulti":
+		case "canvas":
 			var canvas = document.createElement("canvas");
 				canvas.id = uid;
 				canvas.setAttribute("width", size);
@@ -22,7 +22,7 @@ function Spinner(type, count, i) {
 			var ctx = canvas.getContext("2d");
 			ctx.translate(size / 2, size / 2);
 		break;
-		case "svgmulti":
+		case "svgtransforms":
 			var svg = document.createElementNS(svg_ns, "svg");
 			svg.id = uid;
 			svg.setAttribute("width", size);
@@ -54,7 +54,7 @@ function Spinner(type, count, i) {
 		        fillColG = Math.floor((destG - startG) / steps * paintIndex) + startG;
 		        fillColB = Math.floor((destB - startB) / steps * paintIndex) + startB;
 				switch (type) {
-					case "svgmulti":
+					case "svgtransforms":
 					var domNode = document.createElementNS(svg_ns, "line");
 					svgGroup.appendChild(domNode);
 					domNode.setAttribute("stroke", 'rgb('+fillColR+','+fillColG+','+fillColB+')');
@@ -66,7 +66,7 @@ function Spinner(type, count, i) {
 					domNode.setAttribute('y2',size / 2);
 					domNode.setAttribute('transform','rotate('+(360 / steps * paintIndex)+', '+(size/2)+', '+(size/2)+')');
 					break;
-					case "canvasmulti":
+					case "canvas":
 					ctx.save();
 		        
 
@@ -98,7 +98,7 @@ function Spinner(type, count, i) {
 	
 		
 		switch (type) {
-         	case 'svgmulti':
+         	case 'svgtransforms':
          	if (currentStep === durationStep) {
         		currentStep = 0;
         		svgGroup.setAttribute('transform','rotate('+rotAngle+','+(size/2)+','+(size/2)+')');
@@ -110,7 +110,7 @@ function Spinner(type, count, i) {
         	
 
          	break;
-        	case 'canvasmulti':
+        	case 'canvas':
         	
         	
         	if (currentStep === durationStep) {

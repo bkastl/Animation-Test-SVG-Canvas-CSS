@@ -59,7 +59,7 @@ function TestRunner(sequence, stageObject) {
 	}
 	this.run = function() {
 
-        stageObject.prepareStage(sequence[currentTest].type, sequence[currentTest].offscreen);
+        stageObject.prepareStage(sequence[currentTest].type, sequence[currentTest].offscreen, sequence[currentTest].createIndividualElements);
 	}
 }
 
