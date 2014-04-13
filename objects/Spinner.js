@@ -40,7 +40,7 @@ function Spinner(type, count, i) {
 		var fillColR,
 	        fillColG,
 	        fillColB,
-	        rotAngle;
+	        rotAnglePaint;
 	       var paintIndex = 0;
 	      
 	       if (type === "canvasmulti") {
@@ -75,8 +75,8 @@ function Spinner(type, count, i) {
 			        ctx.lineCap = "round";
 
 			        ctx.beginPath();
-			        rotAngle = to_rad(360 / steps * paintIndex) + to_rad(360 / steps * offsetIndex);
-			        ctx.rotate(rotAngle);
+			        rotAnglePaint = to_rad(360 / steps * paintIndex) + to_rad(360 / steps * offsetIndex);
+			        ctx.rotate(rotAnglePaint);
 
 			        ctx.moveTo(0, -Math.floor(size / 8));
 			        ctx.lineTo(0, -Math.floor(size / 3));
@@ -93,17 +93,25 @@ function Spinner(type, count, i) {
 	}
 
 	this.draw = function() {
-		var rotAngle;
+		var rotAngle = (360 / steps * runnerIndex);
 
-
+	
 		
 		switch (type) {
          	case 'svgmulti':
+         	if (currentStep === durationStep) {
+        		currentStep = 0;
+        		svgGroup.setAttribute('transform','rotate('+rotAngle+','+(size/2)+','+(size/2)+')');
+        		++runnerIndex;
+        	}
+        	else {
+        		++currentStep;
+        	}
+        	
 
-        	break;
-
+         	break;
         	case 'canvasmulti':
-        	case 'svgmulti':
+        	
         	
         	if (currentStep === durationStep) {
         		currentStep = 0;
