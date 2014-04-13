@@ -2,9 +2,11 @@ function Stage(stage, statistics) {
 	var self = this,
 	tick = null, 
 	previousTimeStamp = null, framesPainted = 0, stageElements = [], individualObjects = false;
+
 	this.prepareStage = function (type, offscreen, createIndividualElements) {
 		framesPainted = 0;
 		currentType = type;
+		
 		if (createIndividualElements != undefined) {
 			individualObjects = createIndividualElements;
 		}
@@ -146,14 +148,14 @@ function Stage(stage, statistics) {
 	this.endAnimationTest= function() {
 			cancelAnimationFrame(tick);
 			tick = null;
-			//clearStage();
+			clearStage();
 			statistics.endTest();
 			++currentTest;
 			if (currentTest < testSequence.length) {
-				self.prepareStage(testSequence[currentTest].type, testSequence[currentTest].offscreen);
+				self.prepareStage(testSequence[currentTest].type, testSequence[currentTest].offscreen, testSequence[currentTest].createIndividualElements);
 			}
 			else {
-				//statistics.send();
+				statistics.send();
 			}
 	}
 
@@ -161,7 +163,7 @@ function Stage(stage, statistics) {
 		while (stage.hasChildNodes()) {
 			stage.removeChild(stage.lastChild);
 		}
-		framesPainted = 0, context = null, svg = null, previousTimeStamp = null, stageElements = [], webglRenderer = null;
+		framesPainted = 0, context = null, svg = null, previousTimeStamp = null, stageElements = [], webglRenderer = null, individualObjects = false;
 	}
 
 }

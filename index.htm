@@ -11,6 +11,7 @@
 		position: relative;
 		width: 800px;
 		height: 600px;
+		overflow: hidden;
 	}
 
 	.blocktransition {
@@ -130,13 +131,43 @@
 			{object: "Bar", maxObjects: 800, type: "html", description: "HTML with CSS Transforms (3D)", required: "csstransforms"},
 			{object: "Bar", maxObjects: 800, type: "webgl", description: "Canvas (WebGL)", required: "canvas, webgl"},
 			{object: "Pie", maxObjects: 100, type: "canvas", description: "Canvas 2D", required: "canvas"},
-			{object: "Pie", maxObjects: 100, type: "svg", description: "SVG with attribute chnage", required: "svg"},
+			{object: "Pie", maxObjects: 100, type: "svg", description: "SVG with attribute change", required: "svg"},
 			{object: "Pie", maxObjects: 250, type: "canvas", description: "Canvas 2D", required: "canvas"},
-			{object: "Pie", maxObjects: 250, type: "svg", description: "SVG with attribute chnage", required: "svg"},
+			{object: "Pie", maxObjects: 250, type: "svg", description: "SVG with attribute change", required: "svg"},
 			{object: "Pie", maxObjects: 1000, type: "canvas", description: "Canvas 2D", required: "canvas"},
-			{object: "Pie", maxObjects: 1000, type: "svg", description: "SVG with attribute chnage", required: "svg"}
+			{object: "Pie", maxObjects: 1000, type: "svg", description: "SVG with attribute chnage", required: "svg"},
+			{object: "Line", maxObjects: 20, type: "canvas", description: "Canvas 2D", required: "canvas"},
+			{object: "Line", maxObjects: 20, type: "svg", description: "SVG Transforms", required: "svg"},
+			{object: "Line", maxObjects: 50, type: "canvas", description: "Canvas 2D", required: "canvas"},
+			{object: "Line", maxObjects: 50, type: "svg", description: "SVG Transforms", required: "svg"},
+			{object: "Line", maxObjects: 100, type: "canvas", description: "Canvas 2D", required: "canvas"},
+			{object: "Line", maxObjects: 100, type: "svg", description: "SVG Transforms", required: "svg"},
+			{object: "Spinner", maxObjects: 48, type: "canvas", description: "Canvas 2D", required: "canvas", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 48, type: "svg", description: "SVG Transforms", required: "svg", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 48, type: "svganimations", description: "SVG Animation", required: "svg, smil", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 48, type: "htmlanimation", description: "SVG with HTML Animation", required: "svg, cssanimations", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 141, type: "canvas", description: "Canvas 2D", required: "canvas", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 141, type: "svg", description: "SVG Transforms", required: "svg", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 141, type: "svganimations", description: "SVG Animation", required: "svg, smil", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 141, type: "htmlanimation", description: "SVG with HTML Animation", required: "svg, cssanimations", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 390, type: "canvas", description: "Canvas 2D", required: "canvas", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 390, type: "svg", description: "SVG Transforms", required: "svg", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 390, type: "svganimations", description: "SVG Animation", required: "svg, smil", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 390, type: "htmlanimation", description: "SVG with HTML Animation", required: "svg, cssanimations", createIndividualElements: true}
+
 		];
-		testSequence = [{object: "Spinner", maxObjects: 1000, type: "htmlanimation", description: "Line Test", required: null, createIndividualElements: true}];
+		/*testSequence = [{object: "Spinner", maxObjects: 200, type: "canvas", description: "Canvas 2D", required: "canvas", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 48, type: "svg", description: "SVG Transforms", required: "svg", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 48, type: "svganimations", description: "SVG Animation", required: "svg, smil", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 48, type: "htmlanimation", description: "SVG with HTML Animation", required: "svg, cssanimations", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 130, type: "canvas", description: "Canvas 2D", required: "canvas", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 130, type: "svg", description: "SVG Transforms", required: "svg", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 130, type: "svganimations", description: "SVG Animation", required: "svg, smil", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 130, type: "htmlanimation", description: "SVG with HTML Animation", required: "svg, cssanimations", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 190, type: "canvas", description: "Canvas 2D", required: "canvas", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 330, type: "svg", description: "SVG Transforms", required: "svg", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 330, type: "svganimations", description: "SVG Animation", required: "svg, smil", createIndividualElements: true},
+			{object: "Spinner", maxObjects: 330, type: "htmlanimation", description: "SVG with HTML Animation", required: "svg, cssanimations", createIndividualElements: true}];*/
 		var currentTest = 0,
 		testDuration = 500,
 		stageWidth = 800,
