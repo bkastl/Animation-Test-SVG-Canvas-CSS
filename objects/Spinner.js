@@ -22,6 +22,7 @@ function Spinner(type, count, i) {
 			var ctx = canvas.getContext("2d");
 			ctx.translate(size / 2, size / 2);
 		break;
+		case "svg":
 		case "svgtransforms":
 			var svg = document.createElementNS(svg_ns, "svg");
 			svg.id = uid;
@@ -54,6 +55,7 @@ function Spinner(type, count, i) {
 		        fillColG = Math.floor((destG - startG) / steps * paintIndex) + startG;
 		        fillColB = Math.floor((destB - startB) / steps * paintIndex) + startB;
 				switch (type) {
+					case "svg":
 					case "svgtransforms":
 					var domNode = document.createElementNS(svg_ns, "line");
 					svgGroup.appendChild(domNode);
@@ -98,6 +100,7 @@ function Spinner(type, count, i) {
 	
 		
 		switch (type) {
+			case 'svg':
          	case 'svgtransforms':
          	if (currentStep === durationStep) {
         		currentStep = 0;
