@@ -44,7 +44,7 @@ function Bar(type, count, i) {
 		domNode.removeAttribute("transform");
 		domNode.style['-webkit-transform-origin-y'] = "100%";
 		domNode.style['-moz-transform-origin-y'] = "100%";
-		domNode.style['transform-origin-y'] = "100%";
+		domNode.style.transformOrigin = "100% 100%";
 		
 		break;
 
@@ -85,7 +85,7 @@ function Bar(type, count, i) {
 		domNode.setAttribute("class", "blocktransition");
 		domNode.style['-webkit-transform-origin-y'] = "100%";
 		domNode.style['-moz-transform-origin-y'] = "100%";
-		domNode.style['transform-origin-y'] = "100%";
+		domNode.style.transformOrigin = "100% 100%";
 		
 
 		domNode.style[Modernizr.prefixed('transition')] = "all "+animationDuration+ " linear";
@@ -102,7 +102,7 @@ function Bar(type, count, i) {
 		domNode.style.left = x + 'px';
 		domNode.style['-webkit-transform-origin-y'] = "100%";
 		domNode.style['-moz-transform-origin-y'] = "100%";
-		domNode.style['transform-origin-y'] = "100%";
+		domNode.style.transformOrigin = "100% 100%";
 	
 		domNode.id = uid;
 		stage.appendChild(domNode);
@@ -116,7 +116,7 @@ function Bar(type, count, i) {
 		domNode.style.left = x + 'px';
 		domNode.style['-webkit-transform-origin-y'] = "100%";
 		domNode.style['-moz-transform-origin-y'] = "100%";
-		domNode.style['transform-origin-y'] = "100%";
+		domNode.style.transformOrigin = "100% 100%";
 		
 
 		domNode.style[Modernizr.prefixed('transition')] = "all "+animationDuration+ " linear";
@@ -135,7 +135,7 @@ function Bar(type, count, i) {
 		domNode.className = "bar-animation";
 		domNode.style['-webkit-transform-origin-y'] = "100%";
 		domNode.style['-moz-transform-origin-y'] = "100%";
-		domNode.style['transform-origin-y'] = "100%";
+		domNode.style.transformOrigin = "100% 100%";
 		domNode.style['-webkit-animation'] = "height " +animationDuration +" linear 0s infinite normal";
 		domNode.style['animation'] = "height "+animationDuration +" linear 0s infinite normal";
 		domNode.id = uid;

@@ -148,11 +148,11 @@ function Stage(stage, statistics) {
 	this.endAnimationTest= function() {
 			cancelAnimationFrame(tick);
 			tick = null;
-			clearStage();
+			//clearStage();
 			statistics.endTest();
 			++currentTest;
 			if (currentTest < testSequence.length) {
-				self.prepareStage(testSequence[currentTest].type, testSequence[currentTest].offscreen, testSequence[currentTest].createIndividualElements);
+				//self.prepareStage(testSequence[currentTest].type, testSequence[currentTest].offscreen, testSequence[currentTest].createIndividualElements);
 			}
 			else {
 				statistics.send();

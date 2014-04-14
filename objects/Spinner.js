@@ -59,7 +59,7 @@ function Spinner(type, count, i) {
 	else if (type === "htmlanimation") {
 		svgGroup.style['-webkit-transform-origin'] = "50% 50%";
 		svgGroup.style['-moz-transform-origin'] = "50% 50%";
-		svgGroup.style['transform-origin'] = "50% 50%";
+		svgGroup.style.transformOrigin = (size/2)+'px ' + (size/2)+'px';
 		svgGroup.style['-webkit-animation'] = "rotate " +animationDuration +" linear 0s infinite normal";
 		svgGroup.style['animation'] = "rotate "+animationDuration +" linear 0s infinite normal";
 	}
