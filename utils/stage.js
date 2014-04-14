@@ -1,7 +1,7 @@
 function Stage(stage, statistics) {
 	var self = this,
 	tick = null, 
-	previousTimeStamp = null, framesPainted = 0, stageElements = [], individualObjects = false;
+	previousTimeStamp = null, framesPainted = 0, stageElements = [], individualObjects = false, buffer = undefined, displayContext = undefined;
 
 	this.prepareStage = function (type, offscreen, createIndividualElements) {
 		framesPainted = 0;
@@ -16,12 +16,14 @@ function Stage(stage, statistics) {
 		if (!individualObjects) {
 		switch(type) {
 			case "canvas":
+			case "canvasbuffer":
 				var canvas = document.createElement("canvas");
 				canvas.id = "canvas";
 				canvas.setAttribute("width", stageWidth);
 				canvas.setAttribute("height", stageHeight);
 				stage.appendChild(canvas);
 				context = canvas.getContext("2d");
+
 			break;
 			case "svg":
 			case "svgtransforms":
@@ -59,6 +61,15 @@ function Stage(stage, statistics) {
 		}
 		else {
 			stage.style.visibility = "visible";
+		}
+
+		if (type === "canvasbuffer") {
+				buffer = document.createElement("canvas");
+				buffer.id = "canvasbuffer";
+				buffer.setAttribute("width", stageWidth);
+				buffer.setAttribute("height", stageHeight);
+				context = buffer.getContext("2d");
+				displayContext = canvas.getContext("2d");
 		}
 
 		this.buildStage();
@@ -110,9 +121,12 @@ function Stage(stage, statistics) {
 		{
 			timeOffset = 0;
 		}
+
+		
 		if (!individualObjects) {
 		switch(currentType) {
 			case 'canvas':
+			case 'canvasbuffer':
 				context.clearRect(0, 0, stageWidth, stageHeight);
 			break;
 			case 'svgrebuild':
@@ -132,7 +146,10 @@ function Stage(stage, statistics) {
 			stageElements[stageElement].draw(timeOffset);
 		}
 
-		
+		if (currentType === "canvasbuffer") {
+			displayContext.clearRect(0, 0, stageWidth, stageHeight);
+			displayContext.drawImage(buffer,0,0);
+		}
 		var paintTime = setTimestamp() - frameStartTimeStamp;
 		
 		
@@ -148,7 +165,7 @@ function Stage(stage, statistics) {
 	this.endAnimationTest= function() {
 			cancelAnimationFrame(tick);
 			tick = null;
-			//clearStage();
+			clearStage();
 			statistics.endTest();
 			++currentTest;
 			if (currentTest < testSequence.length) {
@@ -160,6 +177,11 @@ function Stage(stage, statistics) {
 	}
 
 	function clearStage() {
+		if (buffer !== undefined) {
+			buffer = undefined;
+			copySource = undefined;
+			displayContext = undefined;
+		}
 		while (stage.hasChildNodes()) {
 			stage.removeChild(stage.lastChild);
 		}

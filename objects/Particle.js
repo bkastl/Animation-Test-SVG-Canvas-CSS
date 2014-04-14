@@ -97,6 +97,7 @@ this.draw = function (timeOffset) {
 	switch(type) {
 
 		case "canvas":
+		case "canvasbuffer":
 		context.fillStyle = color;
 		context.beginPath();
 		context.arc(nextX, nextY, diameter, 0, Math.PI * 2, true);

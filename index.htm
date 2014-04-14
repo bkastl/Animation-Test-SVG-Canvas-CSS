@@ -97,15 +97,16 @@
 			{object: "Particle", maxObjects: 1000, type: "html", description: "HTML with CSS Transforms (3D)", required: "csstransforms", offscreen: true},
 			{object: "Particle", maxObjects: 1000, type: "htmlposition", description: "HTML with CSS Positioning", required: null, offscreen: true},
 			{object: "Particle", maxObjects: 1000, type: "canvas", description: "Canvas 2D", required: "canvas"},
+			{object: "Particle", maxObjects: 1000, type: "canvasbuffer", description: "Canvas 2D width buffering", required: "canvas"},
 			{object: "Particle", maxObjects: 1000, type: "svg", description: "SVG with attribute change", required: "svg"},
 			{object: "Particle", maxObjects: 1000, type: "svgrebuild", description: "SVG with removing and inserting", required: "svg"},
 			{object: "Particle", maxObjects: 1000, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg"},
 			{object: "Particle", maxObjects: 1000, type: "svgcsstransforms", description: "SVG with CSS Transforms (3D)", required: "svg, csstransforms"},
 			{object: "Particle", maxObjects: 1000, type: "html", description: "HTML with CSS Transforms (3D)", required: "csstransforms"},
 			{object: "Particle", maxObjects: 2500, type: "canvas", description: "Canvas 2D", required: "canvas"},
+			{object: "Particle", maxObjects: 2500, type: "canvasbuffer", description: "Canvas 2D width buffering", required: "canvas"},
 			{object: "Particle", maxObjects: 2500, type: "svg", description: "SVG with attribute change", required: "svg"},
 			{object: "Particle", maxObjects: 2500, type: "svgtransforms", description: "SVG with SVG Transformations", required: "svg"},
-
 			{object: "Particle", maxObjects: 1000, type: "webgl", description: "Canvas (WebGL", required: "webgl, canvas"},
 			{object: "Particle", maxObjects: 2500, type: "webgl", description: "Canvas (WebGL", required: "webgl, canvas"},
 			{object: "Particle", maxObjects: 5000, type: "webgl", description: "Canvas (WebGL", required: "webgl, canvas"},
@@ -156,9 +157,9 @@
 			{object: "Spinner", maxObjects: 390, type: "htmlanimation", description: "SVG with HTML Animation", required: "svg, cssanimations", createIndividualElements: true}
 
 		];
-		testSequence = [
-			{object: "Bar", maxObjects: 48, type: "htmltransition", description: "SVG with HTML Animation", required: "svg, cssanimations", createIndividualElements: true},
-			];
+		/*testSequence = [
+			{object: "Particle", maxObjects: 5000, type: "canvasbuffer", description: "SVG with HTML Animation", required: "svg, cssanimations"},
+			];*/
 		var currentTest = 0,
 		testDuration = 500,
 		stageWidth = 800,
