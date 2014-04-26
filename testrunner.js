@@ -7,59 +7,87 @@ function TestRunner(sequence, stageObject) {
 		//#tests=svg,canvas,etc.
 		//#object=all
 	}
+
+	function getSequenceLength() {
+		return sequence.length;
+
+	}
 	
 	function clearSequence(key) {
-		var i=0;
-		while ( i < sequence.length) {
-			if (sequence[i].required.indexOf(key) != -1) {
-				sequence.splice(i,1)
+		var j = 0;
+		while ( j < sequence.length) {
+			if (sequence[j].required.indexOf(key) > -1) {
+				sequence.splice(j,1)
 			}
-			++i;
+			
+			++j;
 		}
 	}
 
-	function clearObjects(key) {
-		var i=0;
-		while ( i < sequence.length) {
-			if (sequence[i].object.indexOf(key) != -1) {
-				sequence.splice(i,1)
-			}
-			++i;
-		}
-	}
+	
 
 	this.checkSystemCapabilities = function() {
+		var featureSet = [Modernizr.canvas, Modernizr.svg, Modernizr.smil, Modernizr.webgl, Modernizr.csstransforms, Modernizr.csstransforms3d, Modernizr.csstransitions, Modernizr.cssanimations];
+		var featureSetLinks = ["canvas","svg","smil","webgl","csstransforms","useless","csstransitions","cssanimations"];
+		var featureSetDescription = ["Canvas","SVG","SVG Animations","WebGL","CSS Transforms 2D","CSS Transforms 3D","CSS Transitions","CSS Animations"];
+		var totalTests = getSequenceLength(), supportedTests;
+		var descriptiontoEnter = ""; 
+		var descriptionNode = document.getElementById('supportedfeatures');
+		var totalTestNode = document.getElementById('totaltests');
+		var supportedTestNode = document.getElementById('supportedtests');
+		var i = 0;
+		totalTestCount = totalTests;
+		totalTestNode.innerHTML = totalTests;
+		while ( i < featureSet.length) {
+			
+			if (featureSet[i]) {
+				
+				descriptiontoEnter = descriptiontoEnter + featureSetDescription[i] + ", ";
 
-		if (!Modernizr.svg) {
-			clearSequence('svg');
+			}
+			else {
+				clearSequence(featureSetLinks[i]);
+			}
+			++i;
 		}
-		if (!Modernizr.canvas) {
-			clearSequence('canvas');
-		}
+		descriptionNode.innerHTML = descriptiontoEnter ;
+		supportedTests = getSequenceLength();
+		supportedTestNode.innerHTML = supportedTests;
+	
 
-		if (!Modernizr.smil) {
-			clearSequence('smil');
-		}
 
-		if (!Modernizr.webgl) {
-			clearSequence('webgl');
-		}
-
-		if (!Modernizr.csstransforms && !Modernizr.csstransforms3d) {
-			clearSequence('csstransforms');
-		}
-
-		if (!Modernizr.csstransitions) {
-			clearSequence('csstransitions');
-		}
-
-		if (!Modernizr.cssanimations) {
-			clearSequence('cssanimations');
-		}
-	}
+	},
 	this.run = function() {
         stageObject.prepareStage(sequence[currentTest].type, sequence[currentTest].offscreen, sequence[currentTest].createIndividualElements);
+	},
+	this.optimizeSequence = function(object, type) {
+		
+		var k = currentTest;
+		var maxTestIndex = k;
+		while ( k < sequence.length) {
+			if (sequence[k].object.indexOf(object) > -1) {
+				maxTestIndex = k;
+			}
+			
+			++k;
+		}
+
+		var l = currentTest;
+		var skippedTestsCount = 0;
+		while (l < maxTestIndex) {
+			
+			if (sequence[l].type.indexOf(type) > -1) {
+				sequence[l].skip = true;
+				++skippedTestsCount;
+				
+			}
+			++l;
+		}
+		
+		statistics.optimize(skippedTestsCount);
 	}
+
+
 }
 
 

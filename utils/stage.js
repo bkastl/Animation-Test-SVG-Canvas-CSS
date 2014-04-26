@@ -77,7 +77,12 @@ function Stage(stage, statistics) {
 		
 	},
 
-	this.buildStage = function(createIndividualElements) {
+	this.buildStage = function() {
+		if (testSequence[currentTest].skip == true) {
+			statistics.startTest();
+			self.endAnimationTest();
+			return false;
+		}
 		
 		for (var i = 0; i < testSequence[currentTest].maxObjects; i++)
 		{	
@@ -101,16 +106,17 @@ function Stage(stage, statistics) {
 			
 		}
 		
-		
 		statistics.startTest();
-
+		
 		this.animateStage();
+		
+		
 		
 		
 	},
 
 	this.animateStage = function() {
-
+		console.log('e')
 		tick = requestAnimationFrame(self.animateStage);
 		var frameStartTimeStamp = setTimestamp();
 		var currentTime = +new Date;
@@ -154,9 +160,11 @@ function Stage(stage, statistics) {
 		
 		
 		++framesPainted;
-		statistics.update(paintTime, previousTimeStamp);
+		statistics.update(paintTime);
 
 		previousTimeStamp = currentTime;
+
+
 		if (framesPainted > (testDuration -1)) {
 			self.endAnimationTest();
 		}
@@ -166,10 +174,10 @@ function Stage(stage, statistics) {
 			cancelAnimationFrame(tick);
 			tick = null;
 			clearStage();
-			statistics.endTest();
+			statistics.endTest(currentTest);
 			++currentTest;
 			if (currentTest < testSequence.length) {
-				//self.prepareStage(testSequence[currentTest].type, testSequence[currentTest].offscreen, testSequence[currentTest].createIndividualElements);
+				self.prepareStage(testSequence[currentTest].type, testSequence[currentTest].offscreen, testSequence[currentTest].createIndividualElements);
 			}
 			else {
 				statistics.send();

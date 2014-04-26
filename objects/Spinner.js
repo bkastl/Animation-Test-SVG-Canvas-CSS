@@ -1,6 +1,7 @@
 function Spinner(type, count, i) {
+
 	var maximumSpace = Math.floor((stageHeight*stageWidth)/count),
-	size = Math.floor(Math.sqrt(maximumSpace)),
+	size = Math.floor(Math.sqrt(maximumSpace))*0.95,
 	endColor = getRandomColorRGB(), uid = generateUID(),
 	steps = Math.round(Math.random()*15)+5, runnerIndex = 0, offsetIndex = 0,
 	durationStep = Math.round(Math.random()*2)+5, currentStep = 0,
@@ -13,6 +14,7 @@ function Spinner(type, count, i) {
 	y = row * size;
 	
 	var animationDuration = durationStep*steps /60 + 's';
+	
 	
 
 	switch(type) {

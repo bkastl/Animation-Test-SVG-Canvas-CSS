@@ -1,25 +1,38 @@
 function Statistics() {
-
+	var self = this;
 	var frameSmoothing = 30, minMS, maxMS, frames, breaks,
-	sumMS, currentFPS, maxFPS, minFPS, prevTime, fpsSamples, sumFPS;
+	sumMS, currentFPS, maxFPS, minFPS, prevTime, fpsSamples, sumFPS, didbreak, measuredFrames;
 	var fpsNode = document.getElementById('fps'), currentTestNode = document.getElementById('currentTest'), currentTestNumber = document.getElementById('currentTestNumber'), totalTests = document.getElementById('totalTests');
 	var remainingFrames = testSequence.length * testDuration, totalSkippedFrames = 0,
 	remainingFramesNode = document.getElementById('remainingFrames'),
 	skippedFramesNode = document.getElementById('skippedFrames'),
+	skippedTestsNode = document.getElementById('skippedtests'),
 	testResults = [], passedTests = [];
 
 
-	function killTest() {
-		dnf = true;
+	this.killTest = function () {
+		runner.optimizeSequence(testSequence[currentTest].object, testSequence[currentTest].type);
+		didbreak = true;
 		totalSkippedFrames += remainingFramesTest;
 		remainingFrames -= remainingFramesTest;
 		stageObject.endAnimationTest();
 		skippedFramesNode.innerHTML = "(Skipped Frames: " + totalSkippedFrames + ")";
-	}
+	},
+
+	this.optimize = function (num) {
+		if (num > 0) {
+			skippedTestsNode.innerHTML = "(Skipped Tests because of poor performance: " + num + ")";
+
+		}
+	},
+
+	this.resetCounts = function() {
+		minMS = Infinity, maxMS = 0, frames = 0, breaks = 0, measuredFrames = 0,
+		sumMS = 0, sumFPS = 0, fpsSamples = 0, maxFPS = 0, minFPS = Infinity, prevTime = setTimestamp(), didbreak = false;
+	},
 
 	this.startTest = function () {
-	 	minMS = Infinity, maxMS = 0, frames = 0, breaks = 0,
-		sumMS = 0, sumFPS = 0, fpsSamples = 0, maxFPS = 0, minFPS = Infinity, prevTime = setTimestamp(), didbreak = false;
+	 	self.resetCounts();
 		currentTestNode.innerHTML = testSequence[currentTest].object+ "*"+testSequence[currentTest].maxObjects +" ("+testSequence[currentTest].description+")";
 		currentTestNumber.innerHTML = currentTest+1, remainingFramesTest = testDuration;
 		totalTests.innerHTML = testSequence.length;
@@ -28,18 +41,21 @@ function Statistics() {
 			currentTestNode.innerHTML = currentTestNode.innerHTML + " Offscreen Test, no Test result visible";
 		}
 	},
+
 	this.update = function(frameTime) {
 		minMS = Math.min(minMS, frameTime);
 		maxMS = Math.max(maxMS, frameTime);
-		
+
 		sumMS += frameTime;
 
 		--remainingFrames;
 
 		--remainingFramesTest;
 
+		++ measuredFrames;
 		++frames;
 		var now = setTimestamp();
+		
 		
 		if (frames > frameSmoothing) {
 			
@@ -47,12 +63,13 @@ function Statistics() {
 				if( currentFPS < breakUnderFPS) {
 					++breaks;
 					if (breaks > stopAfterBreaks) {
-						killTest();
+						self.killTest();
 					}
 				}
 
-				if (currentFPS < breakImmediatly) {
-					killTest();
+				if (currentFPS < breakImmediatelyFPS) {
+					self.killTest();
+
 				}
 				sumFPS += currentFPS;
 				++fpsSamples;
@@ -68,25 +85,28 @@ function Statistics() {
 
 		
 	},
-	this.endTest = function() {
+	this.endTest = function(num) {
 		var testavgFPS = sumFPS/fpsSamples;
+
 		if (isNaN(testavgFPS)) {testavgFPS = 0;}
 		var testResult = {
-			testNumber: currentTest,
+			testDescription: testSequence[num],
+			testNumber: testSequence[num].id,
 			minMS: minMS,
 			maxMS: maxMS,
 			sumMS: sumMS,
 			minFPS: minFPS,
 			maxFPS: maxFPS,
 			avgFPS: testavgFPS,
-			testDidNotFinish: didbreak
+			testDidNotFinish: didbreak,
+			measuredFrames: measuredFrames
 		};
 		
 		if (!didbreak) {
 			passedTests.push(currentTest);
 		}
 		testResults.push(testResult);
-
+		
 		/*Todo update more information in testresults */
 		
 	},
@@ -98,7 +118,9 @@ function Statistics() {
  			++i;
  		}
  		points = Math.round(points);
- 		var maximumPoints = testSequence.length * 60;
+ 		var maximumPoints = totalTestCount * 60;
+ 		console.log(testResults);
+		console.log(passedTests)
  		alert('your Browser archieved ' + points + ' of ' + maximumPoints + ' points')
 	}
 }
