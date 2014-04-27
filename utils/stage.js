@@ -16,6 +16,7 @@ function Stage(stage, statistics) {
 		if (!individualObjects) {
 		switch(type) {
 			case "canvas":
+			case "canvassvg":
 			case "canvasbuffer":
 				var canvas = document.createElement("canvas");
 				canvas.id = "canvas";
@@ -42,6 +43,7 @@ function Stage(stage, statistics) {
 			case "htmlposition":
 			case "htmltransition":
 			case "htmlanimation":
+			case "htmlanimationsvg":
 				stage.style.width = stageWidth + 'px';
 				stage.style.height = stageHeight + 'px';
 			break;
@@ -70,6 +72,11 @@ function Stage(stage, statistics) {
 				buffer.setAttribute("height", stageHeight);
 				context = buffer.getContext("2d");
 				displayContext = canvas.getContext("2d");
+		}
+
+		if (testSequence[currentTest].imageAsset != undefined) {
+			imageAsset = new Image();
+			imageAsset.src = testSequence[currentTest].imageAsset;
 		}
 
 		this.buildStage();
@@ -102,6 +109,9 @@ function Stage(stage, statistics) {
 				case 'Spinner':
 					stageElements.push(new Spinner(currentType,testSequence[currentTest].maxObjects,i));
 				break;
+				case 'Sprite':
+					stageElements.push(new Sprite(currentType));
+				break;
 			}
 			
 		}
@@ -133,6 +143,7 @@ function Stage(stage, statistics) {
 		switch(currentType) {
 			case 'canvas':
 			case 'canvasbuffer':
+			case 'canvassvg':
 				context.clearRect(0, 0, stageWidth, stageHeight);
 			break;
 			case 'svgrebuild':
@@ -193,7 +204,7 @@ function Stage(stage, statistics) {
 		while (stage.hasChildNodes()) {
 			stage.removeChild(stage.lastChild);
 		}
-		framesPainted = 0, context = null, svg = null, previousTimeStamp = null, stageElements = [], webglRenderer = null, individualObjects = false;
+		framesPainted = 0, context = null, svg = null, previousTimeStamp = null, stageElements = [], webglRenderer = null, individualObjects = false, imageAsset = null;
 	}
 
 }

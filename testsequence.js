@@ -80,7 +80,21 @@ var testSequence = [
 	{id: 79, object: "Spinner", maxObjects: 360, type: "canvas", description: "Canvas 2D", required: "canvas", createIndividualElements: true},
 	{id: 80, object: "Spinner", maxObjects: 360, type: "svg", description: "SVG Transforms", required: "svg", createIndividualElements: true},
 	{id: 81, object: "Spinner", maxObjects: 360, type: "svganimations", description: "SVG Animation", required: "svg, smil", createIndividualElements: true},
-	{id: 82, object: "Spinner", maxObjects: 360, type: "htmlanimation", description: "SVG with HTML Animation", required: "svg, cssanimations", createIndividualElements: true}
+	{id: 82, object: "Spinner", maxObjects: 360, type: "htmlanimation", description: "SVG with HTML Animation", required: "svg, cssanimations", createIndividualElements: true},
+	{id: 83, object: "Sprite", maxObjects: 25, type: "htmlanimation", description: "HTML with CSS Animations (Spritefile PNG)", required: "csstransforms, cssanimations"},
+	{id: 84, object: "Sprite", maxObjects: 25, type: "backgroundposition", description: "HTML with background-position (Spritefile PNG)", required: "csstransforms"},
+	{id: 85, object: "Sprite", maxObjects: 25, type: "htmlanimationsvg", description: "HTML with CSS Animations (Spritefile SVG)", required: "csstransforms, cssanimations, svg"},
+	{id: 86, object: "Sprite", maxObjects: 25, type: "canvassvg", description: "Canvas 2D (Spritefile SVG)", required: "canvas, svg", imageAsset: "assets/sprites/sprite.svg"},
+	{id: 87, object: "Sprite", maxObjects: 25, type: "canvas", description: "Canvas 2D (Spritefile PNG)", required: "canvas", imageAsset: "assets/sprites/sprite.png"},
+	{id: 88, object: "Sprite", maxObjects: 100, type: "htmlanimation", description: "HTML with CSS Animations (Spritefile PNG)", required: "csstransforms, cssanimations"},
+	{id: 89, object: "Sprite", maxObjects: 100, type: "backgroundposition", description: "HTML with background-position (Spritefile PNG)", required: "csstransforms"},
+	{id: 90, object: "Sprite", maxObjects: 100, type: "htmlanimationsvg", description: "HTML with CSS Animations (Spritefile SVG)", required: "csstransforms, cssanimations, svg"},
+	{id: 90, object: "Sprite", maxObjects: 100, type: "canvas", description: "Canvas 2D (Spritefile PNG)", required: "canvas", imageAsset: "assets/sprites/sprite.png"},
+	{id: 92, object: "Sprite", maxObjects: 250, type: "htmlanimation", description: "HTML with CSS Animations (Spritefile PNG)", required: "csstransforms, cssanimations"},
+	{id: 93, object: "Sprite", maxObjects: 250, type: "backgroundposition", description: "HTML with background-position (Spritefile PNG)", required: "csstransforms"},
+	{id: 94, object: "Sprite", maxObjects: 250, type: "canvas", description: "Canvas 2D (Spritefile PNG)", required: "canvas", imageAsset: "assets/sprites/sprite.png"},
+	{id: 95, object: "Sprite", maxObjects: 1000, type: "canvas", description: "Canvas 2D (Spritefile PNG)", required: "canvas", imageAsset: "assets/sprites/sprite.png"},
+	{id: 96, object: "Sprite", maxObjects: 5000, type: "canvas", description: "Canvas 2D (Spritefile PNG)", required: "canvas", imageAsset: "assets/sprites/sprite.png"},
 	
 ];
-		
+

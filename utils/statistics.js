@@ -3,7 +3,7 @@ function Statistics() {
 	var frameSmoothing = 30, minMS, maxMS, frames, breaks,
 	sumMS, currentFPS, maxFPS, minFPS, prevTime, fpsSamples, sumFPS, didbreak, measuredFrames;
 	var fpsNode = document.getElementById('fps'), currentTestNode = document.getElementById('currentTest'), currentTestNumber = document.getElementById('currentTestNumber'), totalTests = document.getElementById('totalTests');
-	var remainingFrames = testSequence.length * testDuration, totalSkippedFrames = 0,
+	var remainingFrames = testSequence.length * testDuration, totalSkippedFrames = 0, totalSkippedTests = 0;
 	remainingFramesNode = document.getElementById('remainingFrames'),
 	skippedFramesNode = document.getElementById('skippedFrames'),
 	skippedTestsNode = document.getElementById('skippedtests'),
@@ -21,7 +21,8 @@ function Statistics() {
 
 	this.optimize = function (num) {
 		if (num > 0) {
-			skippedTestsNode.innerHTML = "(Skipped Tests because of poor performance: " + num + ")";
+			totalSkippedTests += num;
+			skippedTestsNode.innerHTML = "(Skipped Tests because of poor performance: " + totalSkippedTests + ")";
 
 		}
 	},
