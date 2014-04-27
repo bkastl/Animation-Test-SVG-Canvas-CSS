@@ -36,17 +36,17 @@ function generateUID() {
 }
 
 function preloadImages(images, countCallback, callback) {
-    var result = [];
+    
     var count  = images.length;
     
    
 
     for(var n = 0 ; n < images.length ; n++) {
       var image = images[n];
-      result[n] = document.createElement('img');
+      assets[n] = document.createElement('img');
       
-      result[n].src = image;
-      result[n].addEventListener('load', function() {
+      assets[n].src = image;
+      assets[n].addEventListener('load', function() {
       	--count;
       	if(countCallback != undefined && typeof countCallback == 'function') countCallback(Math.round((1-count/images.length)*100));
       	if (count == 0) {

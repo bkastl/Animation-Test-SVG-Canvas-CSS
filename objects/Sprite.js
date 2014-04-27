@@ -2,11 +2,11 @@ function Sprite(type) {
 	var spriteHeight = 38, spriteWidth = 280/5, animationPhases = 4;
 	var uid = generateUID(),
 	speedMovement = 1+ Math.random()*4,
-	framesPerPhase = 200 + Math.random()*200,
+	framesPerPhase = 3000 + Math.random()*1000,
 	y = Math.random()*(stageHeight - spriteHeight), x = 0
 	currentAnimationPhase = 0, currentFrame = 0, animationDuration = 0.5 + Math.random()*2 + 's';
 	
-	//Methods: SVG/Dom Translate, Backgroundposiiton, cnavas, WEbgL
+	
 
 	switch(type) {
 	
@@ -78,7 +78,11 @@ function Sprite(type) {
 		break;
 	
 		case "webgl":
-		
+		var spriteFrames = ["sprite__01.png","sprite__02.png","sprite__03.png","sprite__04.png","sprite__05.png"];
+		var el = PIXI.Sprite.fromFrame(spriteFrames[0]);
+		el.position.x = 0;
+		el.position.y = y
+		context.addChild(el);
 		break;
 
 	}
@@ -107,13 +111,10 @@ function Sprite(type) {
 			domNode.style[Modernizr.prefixed('transform')] = setTranslate(nextX,0);
 			domNodeInner.style.backgroundPosition = currentAnimationPhase*spriteWidth+ 'px 0px';
 			break;
-			case 'webgl':
-         
-        	
-
-         	break;
+			
         	case 'canvas':
         	case 'canvassvg':
+        	case 'canvasbuffer':
         	
 
         	context.drawImage(
@@ -126,10 +127,13 @@ function Sprite(type) {
 	           y,
 	           spriteWidth,
 	           spriteHeight);
-    		 
-        	
         	
 	        
+			break;
+			case "webgl":
+				el.setTexture(PIXI.Texture.fromFrame('sprite__0'+(currentAnimationPhase+1)+'.png'))
+				el.position.x = nextX;
+
 			break;
         }
 

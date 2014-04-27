@@ -75,12 +75,33 @@ function Stage(stage, statistics) {
 		}
 
 		if (testSequence[currentTest].imageAsset != undefined) {
-			imageAsset = new Image();
-			imageAsset.src = testSequence[currentTest].imageAsset;
+			switch(type)
+			{
+				case "canvasbuffer":
+				case "canvas":
+				case "canvassvg":
+				imageAsset = assets[testSequence[currentTest].imageAsset];
+				
+				break;
+				case "webgl":
+				imageAsset = new PIXI.AssetLoader([testSequence[currentTest].imageAsset]);
+				imageAsset.load();
+				imageAsset.onComplete = this.buildStage();
+
+				break;
+			}
 		}
 
-		this.buildStage();
+		if (type != "webgl") {
+			this.buildStage();
+
+		}
 		
+		else {
+			if (testSequence[currentTest].imageAsset == undefined) {
+				this.buildStage();
+			}
+		}
 		
 	},
 
@@ -204,6 +225,7 @@ function Stage(stage, statistics) {
 		while (stage.hasChildNodes()) {
 			stage.removeChild(stage.lastChild);
 		}
+
 		framesPainted = 0, context = null, svg = null, previousTimeStamp = null, stageElements = [], webglRenderer = null, individualObjects = false, imageAsset = null;
 	}
 
