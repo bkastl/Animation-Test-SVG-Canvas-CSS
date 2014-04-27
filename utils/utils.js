@@ -48,7 +48,7 @@ function preloadImages(images, countCallback, callback) {
       result[n].src = image;
       result[n].addEventListener('load', function() {
       	--count;
-      	if(countCallback != undefined && typeof countCallback == 'function') countCallback((1-count/images.length)*100);
+      	if(countCallback != undefined && typeof countCallback == 'function') countCallback(Math.round((1-count/images.length)*100));
       	if (count == 0) {
       		if(callback != undefined && typeof callback == 'function') callback();
       	}
