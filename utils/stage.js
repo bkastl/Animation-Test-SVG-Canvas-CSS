@@ -116,7 +116,7 @@ function Stage(stage, statistics) {
 	},
 
 	this.animateStage = function() {
-		console.log('e')
+		
 		tick = requestAnimationFrame(self.animateStage);
 		var frameStartTimeStamp = setTimestamp();
 		var currentTime = +new Date;

@@ -1,19 +1,23 @@
 function Sprite(type, count, i) {
-	var maximumSpace = Math.floor((stageHeight*stageWidth)/count),
-	size = Math.floor(Math.sqrt(maximumSpace)),
-	uid = generateUID();
 	
+	var uid = generateUID();
 	
+	//Methods: SVG/Dom Translate, Backgroundposiiton, cnavas, WEbgL
 
 	switch(type) {
 		case "canvas":
 			
 		break;
-		case "svg":
-		
-			
-		break;
+	
+		case "cssanimation":
 
+		break;
+		case "Backgroundposiiton":
+
+		break;
+		case "webgl":
+
+		break;
 
 	}
 	

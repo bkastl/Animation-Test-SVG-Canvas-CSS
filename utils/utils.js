@@ -34,3 +34,25 @@ function generateUID() {
 	
 	return uid;
 }
+
+function preloadImages(images, countCallback, callback) {
+    var result = [];
+    var count  = images.length;
+    
+   
+
+    for(var n = 0 ; n < images.length ; n++) {
+      var image = images[n];
+      result[n] = document.createElement('img');
+      
+      result[n].src = image;
+      result[n].addEventListener('load', function() {
+      	--count;
+      	if(countCallback != undefined && typeof countCallback == 'function') countCallback((1-count/images.length)*100);
+      	if (count == 0) {
+      		if(callback != undefined && typeof callback == 'function') callback();
+      	}
+      })
+    }
+
+}
