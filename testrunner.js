@@ -24,12 +24,20 @@ function TestRunner(sequence, stageObject) {
 		}
 	}
 
+	function checkWebGL() {
+		try {
+	        return !!window.WebGLRenderingContext && !!document.createElement('canvas').getContext('experimental-webgl');
+	    } catch(e) {
+	        return false;
+	    }
+		
+	}
 	
 
 	this.checkSystemCapabilities = function() {
-		var featureSet = [Modernizr.canvas, Modernizr.svg, Modernizr.smil, Modernizr.webgl, Modernizr.csstransforms, Modernizr.csstransforms3d, Modernizr.csstransitions, Modernizr.cssanimations];
-		var featureSetLinks = ["canvas","svg","smil","webgl","csstransforms","useless","csstransitions","cssanimations"];
-		var featureSetDescription = ["Canvas","SVG","SVG Animations","WebGL","CSS Transforms 2D","CSS Transforms 3D","CSS Transitions","CSS Animations"];
+		var featureSet = [Modernizr.canvas, Modernizr.svg, Modernizr.smil, Modernizr.csstransforms, Modernizr.csstransforms3d, Modernizr.csstransitions, Modernizr.cssanimations];
+		var featureSetLinks = ["canvas","svg","smil","csstransforms","useless","csstransitions","cssanimations"];
+		var featureSetDescription = ["Canvas","SVG","SVG Animations","CSS Transforms 2D","CSS Transforms 3D","CSS Transitions","CSS Animations"];
 		var totalTests = getSequenceLength(), supportedTests;
 		var descriptiontoEnter = ""; 
 		var descriptionNode = document.getElementById('supportedfeatures');
@@ -49,6 +57,14 @@ function TestRunner(sequence, stageObject) {
 				clearSequence(featureSetLinks[i]);
 			}
 			++i;
+
+		}
+
+		if (checkWebGL() == false) {
+			clearSequence('webgl');
+		} 
+		else {
+			descriptiontoEnter = descriptiontoEnter + "WebGL";
 		}
 		descriptionNode.innerHTML = descriptiontoEnter ;
 		supportedTests = getSequenceLength();
@@ -83,7 +99,6 @@ function TestRunner(sequence, stageObject) {
 			}
 			++l;
 		}
-		
 		statistics.optimize(skippedTestsCount);
 	}
 
