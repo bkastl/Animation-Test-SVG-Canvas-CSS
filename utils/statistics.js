@@ -3,13 +3,16 @@ function Statistics(selectedTests) {
 	var frameSmoothing = 30, minMS, maxMS, frames, breaks,
 	sumMS, currentFPS, maxFPS, minFPS, prevTime, fpsSamples, sumFPS, didbreak, measuredFrames;
 	var fpsNode = document.getElementById('fps'), currentTestNode = document.getElementById('currentTest'), currentTestNumber = document.getElementById('currentTestNumber'), totalTests = document.getElementById('totalTests');
-	
+	var browserOject;
 	var remainingFrames = selectedTests * testDuration, totalSkippedFrames = 0, totalSkippedTests = 0;
 	remainingFramesNode = document.getElementById('remainingFrames'),
 	skippedFramesNode = document.getElementById('skippedFrames'),
 	skippedTestsNode = document.getElementById('skippedtests'),
 	testResults = [], passedTests = [];
 
+	this.addBrowser = function (browser) {
+		browserOject = browser;
+	},
 
 	this.killTest = function () {
 		runner.optimizeSequence(testSequence[currentTest].object, testSequence[currentTest].type);

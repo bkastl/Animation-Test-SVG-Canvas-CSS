@@ -87,7 +87,7 @@
 		</div>
 		<div id="testdescription">
 			<h1>Run the following tests</h1>
-			<p>Your browser has support for <span id="supportedfeatures"></span> and can run <span id="supportedtests"></span> of <span id="totaltests"></span> tests.</p>
+			<p>Your browser (<span id="browsername"></span> <span id="browserversion"></span> on <span id="osname"></span> <span id="osversion"></span>, device <span id="devicetype"></span>) has support for <span id="supportedfeatures"></span> and can run <span id="supportedtests"></span> of <span id="totaltests"></span> tests.</p>
 			<p>Select the tests you want to run (some combine techniques so there are more possible combinations than total tests):</p>
 			<div id="testselection">
 				
@@ -159,6 +159,14 @@
 	</section>
 	
 	<div id="loader"><div id="loaderinner">0%</div></div>
+	<script>
+	    (function(){var p=[],w=window,d=document,e=f=0;p.push('ua='+encodeURIComponent(navigator.userAgent));e|=w.ActiveXObject?1:0;e|=w.opera?2:0;e|=w.chrome?4:0;
+	    e|='getBoxObjectFor' in d || 'mozInnerScreenX' in w?8:0;e|=('WebKitCSSMatrix' in w||'WebKitPoint' in w||'webkitStorageInfo' in w||'webkitURL' in w)?16:0;
+	    e|=(e&16&&({}.toString).toString().indexOf("\n")===-1)?32:0;p.push('e='+e);f|='sandbox' in d.createElement('iframe')?1:0;f|='WebSocket' in w?2:0;
+	    f|=w.Worker?4:0;f|=w.applicationCache?8:0;f|=w.history && history.pushState?16:0;f|=d.documentElement.webkitRequestFullScreen?32:0;f|='FileReader' in w?64:0;
+	    p.push('f='+f);p.push('r='+Math.random().toString(36).substring(7));p.push('w='+screen.width);p.push('h='+screen.height);var s=d.createElement('script');
+	    s.src='vendor/whichbrowser/detect.js?' + p.join('&');d.getElementsByTagName('head')[0].appendChild(s);})();
+	</script>
 	<script src="vendor/modernizr.min.js"></script>
 	<script src="vendor/pixi.js"></script>
 	<script src="utils/polyfills.js"></script>
@@ -175,7 +183,7 @@
 	<script src="objects/Sprite.js"></script>
 	<script>
 		var setTimestamp, setTranslate;
-
+		
 		
 	
 		var currentTest = 0,

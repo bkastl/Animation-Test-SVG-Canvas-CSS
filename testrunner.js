@@ -6,6 +6,7 @@ function TestRunner(sequence) {
 	var testselectsObjects = document.querySelectorAll('.selectobjecttype');
 	var testselectsRequirements = document.querySelectorAll('.selectsubgroup, .selectsingletest');
 	var startButton = document.getElementById('run');
+	var browserFeatures;
 	var self = this;
 	document.getElementById('start').className = "show";
 
@@ -228,6 +229,29 @@ function TestRunner(sequence) {
 	},
 
 	this.checkSystemCapabilities = function() {
+		browserFeatures = new WhichBrowser();
+		
+		document.getElementById('browsername').innerHTML = browserFeatures.browser.name;
+		
+		if (browserFeatures.browser.version != null) {
+			document.getElementById('browserversion').innerHTML = browserFeatures.browser.version.original;
+		}
+		else if (browserFeatures.engine.version.original != null) {
+			document.getElementById('browserversion').innerHTML = browserFeatures.engine.version.original;
+		}
+		if (browserFeatures.device.type === "desktop") {
+			document.getElementById('osname').innerHTML = browserFeatures.os.name;
+			document.getElementById('osversion').innerHTML = browserFeatures.os.version.original;
+		}
+		else {
+			document.getElementById('osname').innerHTML = browserFeatures.os.name;
+			document.getElementById('osversion').innerHTML = browserFeatures.os.version.original;
+			document.getElementById('devicetype').innerHTML = browserFeatures.device.manufacturer + " " + browserFeatures.device.model;
+		}
+		
+
+		
+
 		var featureSet = [Modernizr.canvas, Modernizr.svg, Modernizr.smil, Modernizr.csstransforms, Modernizr.csstransforms3d, Modernizr.csstransitions, Modernizr.cssanimations];
 		var featureSetLinks = ["canvas","svg","smil","csstransforms","useless","csstransitions","cssanimations"];
 		var featureSetDescription = ["Canvas","SVG","SVG Animations","CSS Transforms 2D","CSS Transforms 3D","CSS Transitions","CSS Animations"];
@@ -277,6 +301,7 @@ function TestRunner(sequence) {
 			document.getElementById('start').className = "";
 			document.getElementById('testrunner').className = "show";
 			statistics = new Statistics(sequence.length);
+			statistics.addBrowser(browserFeatures);
 			stageObject = new Stage(stage, statistics);
         	stageObject.prepareStage(sequence[currentTest].type, sequence[currentTest].offscreen, sequence[currentTest].createIndividualElements);
     	}
