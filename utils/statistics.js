@@ -1,9 +1,10 @@
-function Statistics() {
+function Statistics(selectedTests) {
 	var self = this;
 	var frameSmoothing = 30, minMS, maxMS, frames, breaks,
 	sumMS, currentFPS, maxFPS, minFPS, prevTime, fpsSamples, sumFPS, didbreak, measuredFrames;
 	var fpsNode = document.getElementById('fps'), currentTestNode = document.getElementById('currentTest'), currentTestNumber = document.getElementById('currentTestNumber'), totalTests = document.getElementById('totalTests');
-	var remainingFrames = testSequence.length * testDuration, totalSkippedFrames = 0, totalSkippedTests = 0;
+	
+	var remainingFrames = selectedTests * testDuration, totalSkippedFrames = 0, totalSkippedTests = 0;
 	remainingFramesNode = document.getElementById('remainingFrames'),
 	skippedFramesNode = document.getElementById('skippedFrames'),
 	skippedTestsNode = document.getElementById('skippedtests'),
@@ -119,7 +120,7 @@ function Statistics() {
  			++i;
  		}
  		points = Math.round(points);
- 		var maximumPoints = totalTestCount * 60;
+ 		var maximumPoints = selectedTests * 60;
  		console.log(testResults);
 		console.log(passedTests)
  		alert('your Browser archieved ' + points + ' of ' + maximumPoints + ' points')

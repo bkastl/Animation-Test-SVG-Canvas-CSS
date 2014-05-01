@@ -4,6 +4,13 @@
 	<meta charset="UTF-8">
 	<title>Animationtests</title>
 	<style>
+
+	section {
+		display: none;
+	}
+	section.show {
+		display: block;
+	}
 	#stage div {
 		position:  absolute;
 	}
@@ -72,14 +79,64 @@
 	</style>
 </head>
 <body>
-	<div id="disclaimer">
-		<h1>Warning!</h1>
-		<p>This test tries to test the animation performance of your browser. Some tests are very demanding and may cause slowdowns of your browser, especially on mobile devices. Maybe you will hear some noises from your fan.</p>
-		<p>As I am writing this lines, there are some browsers on high end desktop computers which can run the complete testsuite at about 80 to 90 percent of the maximum possible frames per second (60 in each test). Other browsers will skip frames and continue with the next test.</p>
-		<p>The tests will take a mininum of 3 minutes to complete, slower systems may take longer...</p>
-		<p>Your browser has support for <span id="supportedfeatures"></span> and can run <span id="supportedtests"></span> of <span id="totaltests"></span> tests.</p>
-	</div>
-	<div id="stage"></div>
+	<section id="start">
+		<div id="disclaimer">
+			<h1>Warning!</h1>
+			<p>This test tries to test the animation performance of your browser. Some tests are very demanding and may cause slowdowns of your browser, especially on mobile devices.</p>
+			<p>As I am writing this lines, there are some browsers on high end desktop computers which can run the complete testsuite at about 80 to 90 percent of the maximum possible frames per second (60 in each test). Other browsers will skip frames and continue with the next test.</p>
+		</div>
+		<div id="testdescription">
+			<h1>Run the following tests</h1>
+			<p>Your browser has support for <span id="supportedfeatures"></span> and can run <span id="supportedtests"></span> of <span id="totaltests"></span> tests.</p>
+			<p>Select the tests you want to run (some combine techniques so there are more possible combinations than total tests):</p>
+			<div id="testselection">
+
+				<div class="testgroup">
+					<h3>Canvas</h3>
+					<input type="checkbox" id="select_all_canvas" value="canvasall" class="selectsubgroup" checked="false" data-required="canvas,svg" /><label for="select_all_canvas">All Canvas Tests</label>
+					<div class="subtestgroup">
+						<input type="checkbox" id="select_canvas" value="canvas" class="selectsingletest" checked="false" data-required="canvas"><label for="select_canvas">Canvas 2D with PNG assets</label>
+						<input type="checkbox" id="select_canvasbuffer" value="canvasbuffer" class="selectsingletest" checked="false"  data-required="canvas"><label for="select_canvasbuffer">Canvas 2D with Buffering</label>
+						<input type="checkbox" id="select_canvassvg" value="canvassvg" class="selectsingletest" checked="false" data-required="canvas"><label for="select_canvassvg">Canvas 2D with SVG assets</label>
+					</div>
+				</div>
+				<div class="testgroup">
+					<h3>SVG</h3>
+					<input type="checkbox" id="select_all_svg" value="svgall" class="selectsubgroup" checked="false" data-required="svg,smil,csstransforms"><label for="select_all_svg">All SVG Tests</label>
+					<div class="subtestgroup">
+						<input type="checkbox" id="select_svg" value="svg" class="selectsingletest" checked="false" data-required="svg"><label for="select_svg">SVG with attribute change</label>
+						<input type="checkbox" id="select_svgrebuild" value="svgrebuild" class="selectsingletest" checked="false"  data-required="svg"><label for="select_svgrebuild">SVG with rebuilding SVG Elements</label>
+						<input type="checkbox" id="select_svgtransforms" value="svgtransforms" class="selectsingletest" checked="false" data-required="svg"><label for="select_svgtransforms">SVG with SVG Transforms</label>
+						<input type="checkbox" id="select_svgcsstransforms" value="svgcsstransforms" class="selectsingletest" checked="false" data-required="svg,csstransforms"><label for="select_svgcsstransforms">SVG with CSS Transforms</label>
+						<input type="checkbox" id="select_svganimations" value="svganimations" class="selectsingletest" checked="false" data-required="svg,smil"><label for="select_svganimations">SVG with SMIL Animations</label>
+					</div>
+				</div>
+				<div class="testgroup">
+					<h3>HTML</h3>
+					<input type="checkbox" id="select_all_html" value="htmlall" class="selectsubgroup" checked="false" data-required="cssanimations,csstransforms,csstransitions"><label for="select_all_html">All HTML Tests</label>
+					<div class="subtestgroup">
+						<input type="checkbox" id="select_html" value="html" class="selectsingletest" checked="false" data-required="csstransforms"><label for="select_html">HTML with CSS Transforms (3D)</label>
+						<input type="checkbox" id="select_htmltransition" value="htmltransition" class="selectsingletest" checked="false"  data-required="csstransitions"><label for="select_htmltransition">HTML with CSS Transitions</label>
+						<input type="checkbox" id="select_htmlanimation" value="htmlanimation" class="selectsingletest" checked="false" data-required="cssanimations"><label for="select_animation">HTML with CSS Animations</label>
+						<input type="checkbox" id="select_htmlanimationsvg" value="htmlanimationsvg" class="selectsingletest" checked="false" data-required="cssanimations"><label for="select_animationsvg">HTML with CSS Animations and SVG</label>
+						<input type="checkbox" id="select_backgroundposition" value="backgroundposition" class="selectsingletest" checked="false" data-required="csstransforms"><label for="select_backgroundposition">HTML with background-position</label>
+						<input type="checkbox" id="select_htmlposition" value="htmlposition" class="selectsingletest" checked="false" data-required=""><label for="select_htmlposition">HTML with CSS Positioning</label>
+					</div>
+				</div>
+				<div class="testgroup">
+					<h3>WebGL</h3>
+					<input type="checkbox" id="select_webgl" value="webgl" class="selectsingletest" checked="false" data-required="webgl"/><label for="select_webgl">All WebGL Tests</label>
+					
+				</div>
+				
+				
+			</div>
+			<div id="totalteststorun"></div>
+			<button id="run">Run the tests!</button>
+		</div>
+	</section>
+	<section id="testrunner">
+		<div id="stage"></div>
 	<div id="statistics">
 		<h1 id="currentTest"></h1>
 		<p>Test <span id="currentTestNumber"></span> of <span id="totalTests"></span></p>
@@ -87,6 +144,11 @@
 		<p>Frames remaining: <span id="remainingFrames"></span> <span id="skippedFrames"></span></p>
 		<p id="skippedtests"></p>
 	</div>
+	</section>
+	<section id="testsubmission">
+		
+	</section>
+	
 	<div id="loader"><div id="loaderinner">0%</div></div>
 	<script src="vendor/modernizr.min.js"></script>
 	<script src="vendor/pixi.js"></script>
@@ -114,7 +176,7 @@
 		stage = document.getElementById('stage'),
 		statistics, stageObject, runner, breakUnderFPS = 20,
 		breakImmediatelyFPS = 10, stopAfterBreaks = 1, totalTestCount,
-		context = null, svg = null, svg_ns = "http://www.w3.org/2000/svg", webglRenderer, loader = document.getElementById('loader'), imageAsset, assets = [];
+		context = null, svg = null, svg_ns = "http://www.w3.org/2000/svg", webglRenderer, loader = document.getElementById('loader'), imageAsset, assets = [], testSequence;
 
 		
 
@@ -138,12 +200,13 @@
 		}
 
 		function initTest() {
-			statistics = new Statistics();
-			stageObject = new Stage(stage, statistics);
-			runner = new TestRunner(testSequence,stageObject);
+			
+			runner = new TestRunner(new TestSequence(),stageObject);
 			runner.checkSystemCapabilities();
 			loader.parentNode.removeChild(loader);
-			runner.run();
+
+			runner.bindEvents();
+			document.getElementById('start').className = "show";
 		}
 		function load() {
 			preloadImages(["assets/images/testimageRGB.png", "assets/sprites/sprite.png", "assets/sprites/sprite.svg"], updateLoader, initTest);
