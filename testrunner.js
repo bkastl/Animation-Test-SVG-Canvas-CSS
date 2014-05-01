@@ -232,7 +232,7 @@ function TestRunner(sequence) {
 		browserFeatures = new WhichBrowser();
 		
 		document.getElementById('browsername').innerHTML = browserFeatures.browser.name;
-	
+		
 		if (browserFeatures.browser.version != null) {
 			document.getElementById('browserversion').innerHTML = browserFeatures.browser.version.original;
 		}
@@ -246,7 +246,11 @@ function TestRunner(sequence) {
 		else {
 			document.getElementById('osname').innerHTML = browserFeatures.os.name;
 			if (browserFeatures.os.version != null) {document.getElementById('osversion').innerHTML = browserFeatures.os.version.original;}
-			document.getElementById('devicetype').innerHTML = browserFeatures.device.manufacturer + " " + browserFeatures.device.model;
+			if (browserFeatures.os.manufacturer != null) 
+				{document.getElementById('devicetype').innerHTML = browserFeatures.device.manufacturer + " " + browserFeatures.device.model;}
+			else {
+				document.getElementById('devicetype').innerHTML = browserFeatures.device.type;
+			}
 		}
 		
 
