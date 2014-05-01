@@ -85,6 +85,7 @@ function TestRunner(sequence, stageObject) {
 			if (el.getAttribute('data-required').indexOf(key) > -1) {
 				el.removeEventListener('click');
 				el.setAttribute('disabled',true);
+				el.checked = false;
 			}
 		});
 	}
@@ -222,11 +223,11 @@ function TestRunner(sequence, stageObject) {
 		else {
 			descriptiontoEnter = descriptiontoEnter + "WebGL";
 		}
-		descriptionNode.innerHTML = descriptiontoEnter ;
+		
+		computeTests();
+		descriptionNode.innerHTML = descriptiontoEnter;
 		supportedTests = sequence.length;
 		supportedTestNode.innerHTML = supportedTests;
-	
-		computeTests();
 
 	},
 	this.run = function() {
