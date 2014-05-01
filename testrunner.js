@@ -18,19 +18,19 @@ function TestRunner(sequence, stageObject) {
 	function testLength(key, method) {
 		var j = 0,
 		testLength = 0;
-		
-		while ( j < new TestSequence().length) {
+		var tst = new TestSequence();
+		while ( j < tst.length) {
 			switch(method)
 			{	
 				case "type":
-					if (new TestSequence()[j].type === key) {
+					if (tst[j].type === key) {
 				
 						testLength++;
 					}
 				break;
 
 				default:
-					if (new TestSequence()[j].required === key) {
+					if (tst[j].required === key) {
 				
 						testLength++;
 					}
@@ -172,6 +172,7 @@ function TestRunner(sequence, stageObject) {
 		} 
 		sequence = runSequence;
 		var estTestDuration = testDuration * sequence.length;
+		document.getElementById('estimatedtimetorun').innerHTML = Math.round(estTestDuration /60/60) +  " minutes / "  +Math.round(estTestDuration / 60) + " seconds";
 
 	}
 
