@@ -4,6 +4,7 @@ function TestRunner(sequence) {
 	var testselectsSingleTest = document.querySelectorAll('.selectsingletest');
 	var testselectsAllTests = document.querySelectorAll('.selectsubgroup');
 	var testselectsObjects = document.querySelectorAll('.selectobjecttype');
+	var testselectsIterations = document.querySelectorAll('.selectiterations');
 	var testselectsRequirements = document.querySelectorAll('.selectsubgroup, .selectsingletest');
 	var startButton = document.getElementById('run');
 	var browserFeatures;
@@ -34,6 +35,13 @@ function TestRunner(sequence) {
 
 				case "object":
 					if (tst[j].object === key) {
+				
+						testLength++;
+					}
+				break;
+
+				case "category":
+					if (tst[j].category === key) {
 				
 						testLength++;
 					}
@@ -70,6 +78,13 @@ function TestRunner(sequence) {
 					
 				
 					if (sequence[j].object === key) {
+						sequence[j].leave = true;
+					}
+				break;
+				case "category":
+					
+				
+					if (sequence[j].category === key) {
 						sequence[j].leave = true;
 					}
 				break;
@@ -171,6 +186,20 @@ function TestRunner(sequence) {
 			}
 			h++;
 		}
+		var testComplexities = ['low','medium','high','ultra'];
+		var l = 0;
+		while ( l < testComplexities.length) {
+
+			var el = document.getElementById('select_iterations_'+testComplexities[l].toLowerCase());
+			
+			if (el != undefined) {
+				var count = testLength(testComplexities[l],"category");
+				
+				el.setAttribute('data-count',count);
+				el.nextElementSibling.innerHTML = el.nextElementSibling.innerHTML + " (" + count + ")";
+			}
+			l++;
+		}
 
 		Array.prototype.forEach.call(testselectsAllTests, function(el, i){
 			var subTotalCount = 0;
@@ -201,6 +230,12 @@ function TestRunner(sequence) {
 		Array.prototype.forEach.call(testselectsSingleTest, function(el, i){
 			if (!el.checked) {
 				clearSequence(el.getAttribute('value'),'type');
+			}
+		});
+
+		Array.prototype.forEach.call(testselectsIterations, function(el, i){
+			if (!el.checked) {
+				clearSequence(el.getAttribute('value'),'category');
 			}
 		});
 		var runSequence = [];

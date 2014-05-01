@@ -76,6 +76,8 @@
 		to {transform: translate3d(-100%,0,0);}
 	}
 
+
+
 	</style>
 </head>
 <body>
@@ -90,7 +92,7 @@
 			<p>Your browser (<span id="browsername"></span> <span id="browserversion"></span> on <span id="osname"></span> <span id="osversion"></span>, device <span id="devicetype"></span>) has support for <span id="supportedfeatures"></span> and can run <span id="supportedtests"></span> of <span id="totaltests"></span> tests.</p>
 			<p>Select the tests you want to run (some combine techniques so there are more possible combinations than total tests):</p>
 			<div id="testselection">
-				
+				<h2>Test Objects</h2>
 				<div class="testobjects">
 					<div><input type="checkbox" id="select_object_particle" value="Particle" class="selectobjecttype" checked="true"><label for="select_object_particle">Particle Animation (general animation performance)</label></div>
 					<div><input type="checkbox" id="select_object_bar" value="Bar" class="selectobjecttype" checked="true"><label for="select_object_bar">Bar Chart (general animation performance)</label></div>
@@ -100,6 +102,16 @@
 					<div><input type="checkbox" id="select_object_sprite" value="Sprite" class="selectobjecttype" checked="true"><label for="select_object_sprite">Sprite (bitmap / spriting performance)</label></div>
 
 				</div>
+				<h2>Test Complexity</h2>
+				<p>Ultra not recommended on mobile / tablet (requires good GPU / CPU), high not recommended on medium class mobile devices, medium not recommend on low end mobile devices.</p>
+				<div class="testiterations">
+					<div><input type="checkbox" id="select_iterations_low" value="low" class="selectiterations" checked="true"><label for="select_iterations_low">Lowest set (max. 100 iterations)</label></div>
+					<div><input type="checkbox" id="select_iterations_medium" value="medium" class="selectiterations" checked="true"><label for="select_iterations_medium">Medium set (max. 250 iterations)</label></div>
+					<div><input type="checkbox" id="select_iterations_high" value="high" class="selectiterations" checked="true"><label for="select_iterations_high">Large Set (max. 1000 iterations)</label></div>
+					<div><input type="checkbox" id="select_iterations_ultra" value="ultra" class="selectiterations" checked="true"><label for="select_iterations_ultra">Ultra Set (up tp 15000 iterations!)</label></div>
+
+				</div>
+				<h2>Test Methods</h2>
 				<div class="testgroup">
 					<h3>Canvas</h3>
 					<input type="checkbox" id="select_all_canvas" value="canvasall" class="selectsubgroup" checked="false" data-required="canvas,svg" ><label for="select_all_canvas">All Canvas Tests</label>

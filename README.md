@@ -6,7 +6,8 @@ A test suite to compare browser performance in animating things.
 It tests various methods of animation:
 
 * Canvas
-* SVG
+* SVG (attribute changes, rebuilding, transforms)
+* SVG Animations
 * HTML with CSS Transforms
 * HTML with CSS Transitions
 * HTML with CSS Animations
