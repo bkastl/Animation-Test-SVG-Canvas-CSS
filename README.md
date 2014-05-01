@@ -28,8 +28,11 @@ The tests are demanding and you cause crashes or slowdowns, especially on mobile
 The calculations for all tests are very similar regardless the type of animation.
 
 Particle mostly based on http://www.themaninblue.com/writing/perspective/2010/03/22/
+
 Accelerated WebGL based on pixi.js (http://www.pixijs.com/)
+
 Browser detection based on Whichbrowser (https://github.com/NielsLeenheer/WhichBrowser)
+
 Feature detection based on Modernizr (http://www.modernizr.com)
 
 
