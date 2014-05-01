@@ -16,7 +16,7 @@ function Statistics(selectedTests) {
 		didbreak = true;
 		totalSkippedFrames += remainingFramesTest;
 		remainingFrames -= remainingFramesTest;
-		stageObject.endAnimationTest();
+		window.stageObject.endAnimationTest();
 		skippedFramesNode.innerHTML = "(Skipped Frames: " + totalSkippedFrames + ")";
 	},
 

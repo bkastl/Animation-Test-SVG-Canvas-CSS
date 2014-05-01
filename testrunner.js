@@ -1,8 +1,10 @@
-function TestRunner(sequence, stageObject) {
+function TestRunner(sequence) {
 	var hash = window.location.hash;
 	var testselects = document.querySelectorAll('input[type="checkbox"]');
 	var testselectsSingleTest = document.querySelectorAll('.selectsingletest');
 	var testselectsAllTests = document.querySelectorAll('.selectsubgroup');
+	var testselectsObjects = document.querySelectorAll('.selectobjecttype');
+	var testselectsRequirements = document.querySelectorAll('.selectsubgroup, .selectsingletest');
 	var startButton = document.getElementById('run');
 	var self = this;
 	document.getElementById('start').className = "show";
@@ -24,6 +26,13 @@ function TestRunner(sequence, stageObject) {
 			{	
 				case "type":
 					if (tst[j].type === key) {
+				
+						testLength++;
+					}
+				break;
+
+				case "object":
+					if (tst[j].object === key) {
 				
 						testLength++;
 					}
@@ -56,6 +65,13 @@ function TestRunner(sequence, stageObject) {
 						sequence[j].leave = true;
 					}
 				break;
+				case "object":
+					
+				
+					if (sequence[j].object === key) {
+						sequence[j].leave = true;
+					}
+				break;
 				default:
 					if (sequence[j].required === key) {
 						sequence[j].leave = true;
@@ -80,7 +96,7 @@ function TestRunner(sequence, stageObject) {
 
 	function clearCheckboxes(key) {
 		
-		Array.prototype.forEach.call(testselects, function(el, i){
+		Array.prototype.forEach.call(testselectsRequirements, function(el, i){
 			
 			if (el.getAttribute('data-required').indexOf(key) > -1) {
 				el.removeEventListener('click');
@@ -115,11 +131,15 @@ function TestRunner(sequence, stageObject) {
 	
 
 	function getTestTypeCount() {
-		var types  = [];
+		var types  = [], testObjects = [];
 		var j = 0;
-		while ( j < new TestSequence().length) {
-			if (types.indexOf(new TestSequence()[j].type) == -1) {
-				types.push(new TestSequence()[j].type)
+		var tst = new TestSequence();
+		while ( j < tst.length) {
+			if (types.indexOf(tst[j].type) == -1) {
+				types.push(tst[j].type)
+			}
+			if (testObjects.indexOf(tst[j].object) == -1) {
+				testObjects.push(tst[j].object)
 			}
 			++j;
 		}
@@ -136,6 +156,19 @@ function TestRunner(sequence, stageObject) {
 				el.nextElementSibling.innerHTML = el.nextElementSibling.innerHTML + " (" + count + ")";
 			}
 			g++;
+		}
+		var h = 0;
+		while ( h < testObjects.length) {
+
+			var el = document.getElementById('select_object_'+testObjects[h].toLowerCase());
+			
+			if (el != undefined) {
+				var count = testLength(testObjects[h],"object");
+				
+				el.setAttribute('data-count',count);
+				el.nextElementSibling.innerHTML = el.nextElementSibling.innerHTML + " (" + count + ")";
+			}
+			h++;
 		}
 
 		Array.prototype.forEach.call(testselectsAllTests, function(el, i){
@@ -157,6 +190,13 @@ function TestRunner(sequence, stageObject) {
 		
 		sequence = new TestSequence();
 		
+		Array.prototype.forEach.call(testselectsObjects, function(el, i){
+			if (!el.checked) {
+
+				clearSequence(el.getAttribute('value'),'object');
+			}
+		});
+
 		Array.prototype.forEach.call(testselectsSingleTest, function(el, i){
 			if (!el.checked) {
 				clearSequence(el.getAttribute('value'),'type');
@@ -233,11 +273,13 @@ function TestRunner(sequence, stageObject) {
 	},
 	this.run = function() {
 		testSequence = sequence;
-		document.getElementById('start').className = "";
-		document.getElementById('testrunner').className = "show";
-		statistics = new Statistics(sequence.length);
-		stageObject = new Stage(stage, statistics);
-        stageObject.prepareStage(sequence[currentTest].type, sequence[currentTest].offscreen, sequence[currentTest].createIndividualElements);
+		if (sequence.length > 0) {
+			document.getElementById('start').className = "";
+			document.getElementById('testrunner').className = "show";
+			statistics = new Statistics(sequence.length);
+			stageObject = new Stage(stage, statistics);
+        	stageObject.prepareStage(sequence[currentTest].type, sequence[currentTest].offscreen, sequence[currentTest].createIndividualElements);
+    	}
 	},
 	this.optimizeSequence = function(object, type) {
 		

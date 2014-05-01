@@ -2,7 +2,7 @@ function Sprite(type) {
 	var spriteHeight = 38, spriteWidth = 280/5, animationPhases = 4;
 	var uid = generateUID(),
 	speedMovement = 1+ Math.random()*4,
-	framesPerPhase = 3000 + Math.random()*1000,
+	framesPerPhase = Math.round(10 + Math.random()*30),
 	y = Math.random()*(stageHeight - spriteHeight), x = 0
 	currentAnimationPhase = 0, currentFrame = 0, animationDuration = 0.5 + Math.random()*2 + 's';
 	
@@ -90,13 +90,12 @@ function Sprite(type) {
 
  this.draw = function() {
 		++currentFrame;
-		if (currentFrame > framesPerPhase) {
+		if (currentFrame % framesPerPhase == 0) {
 			++ currentAnimationPhase;
 			
 			if (currentAnimationPhase > animationPhases) {
 				currentAnimationPhase = 0;
 			}
-			currentFrame = 0;
 		}
 		var nextX = x + speedMovement;
 		if (nextX > (stageWidth-spriteWidth)) {

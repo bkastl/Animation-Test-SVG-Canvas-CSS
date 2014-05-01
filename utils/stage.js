@@ -1,5 +1,6 @@
 function Stage(stage, statistics) {
 	var self = this,
+	
 	tick = null, 
 	previousTimeStamp = null, framesPainted = 0, stageElements = [], individualObjects = false, buffer = undefined, displayContext = undefined;
 

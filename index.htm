@@ -90,10 +90,19 @@
 			<p>Your browser has support for <span id="supportedfeatures"></span> and can run <span id="supportedtests"></span> of <span id="totaltests"></span> tests.</p>
 			<p>Select the tests you want to run (some combine techniques so there are more possible combinations than total tests):</p>
 			<div id="testselection">
+				
+				<div class="testobjects">
+					<div><input type="checkbox" id="select_object_particle" value="Particle" class="selectobjecttype" checked="true"><label for="select_object_particle">Particle Animation (general animation performance)</label></div>
+					<div><input type="checkbox" id="select_object_bar" value="Bar" class="selectobjecttype" checked="true"><label for="select_object_bar">Bar Chart (general animation performance)</label></div>
+					<div><input type="checkbox" id="select_object_pie" value="Pie" class="selectobjecttype" checked="true"><label for="select_object_chart">Pie Chart (drawing performance)</label></div>
+					<div><input type="checkbox" id="select_object_line" value="Line" class="selectobjecttype" checked="true"><label for="select_object_line">Line Chart (drawing performance)</label></div>
+					<div><input type="checkbox" id="select_object_spinner" value="Spinner" class="selectobjecttype" checked="true"><label for="select_object_spinner">Spinner (animation performance)</label></div>
+					<div><input type="checkbox" id="select_object_sprite" value="Sprite" class="selectobjecttype" checked="true"><label for="select_object_sprite">Sprite (bitmap / spriting performance)</label></div>
 
+				</div>
 				<div class="testgroup">
 					<h3>Canvas</h3>
-					<input type="checkbox" id="select_all_canvas" value="canvasall" class="selectsubgroup" checked="false" data-required="canvas,svg" /><label for="select_all_canvas">All Canvas Tests</label>
+					<input type="checkbox" id="select_all_canvas" value="canvasall" class="selectsubgroup" checked="false" data-required="canvas,svg" ><label for="select_all_canvas">All Canvas Tests</label>
 					<div class="subtestgroup">
 						<input type="checkbox" id="select_canvas" value="canvas" class="selectsingletest" checked="false" data-required="canvas"><label for="select_canvas">Canvas 2D with PNG assets</label>
 						<input type="checkbox" id="select_canvasbuffer" value="canvasbuffer" class="selectsingletest" checked="false"  data-required="canvas"><label for="select_canvasbuffer">Canvas 2D with Buffering</label>
