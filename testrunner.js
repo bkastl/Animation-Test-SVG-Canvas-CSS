@@ -232,11 +232,11 @@ function TestRunner(sequence) {
 		browserFeatures = new WhichBrowser();
 		
 		document.getElementById('browsername').innerHTML = browserFeatures.browser.name;
-		
+	
 		if (browserFeatures.browser.version != null) {
 			document.getElementById('browserversion').innerHTML = browserFeatures.browser.version.original;
 		}
-		else if (browserFeatures.engine.version.original != null) {
+		else if (browserFeatures.engine.version != null) {
 			document.getElementById('browserversion').innerHTML = browserFeatures.engine.version.original;
 		}
 		if (browserFeatures.device.type === "desktop") {
@@ -245,7 +245,7 @@ function TestRunner(sequence) {
 		}
 		else {
 			document.getElementById('osname').innerHTML = browserFeatures.os.name;
-			document.getElementById('osversion').innerHTML = browserFeatures.os.version.original;
+			if (browserFeatures.os.version != null) {document.getElementById('osversion').innerHTML = browserFeatures.os.version.original;}
 			document.getElementById('devicetype').innerHTML = browserFeatures.device.manufacturer + " " + browserFeatures.device.model;
 		}
 		
