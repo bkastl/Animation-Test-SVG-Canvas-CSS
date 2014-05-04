@@ -105,9 +105,17 @@ function TestSequence()
 		{id: 100, object: "Sprite", maxObjects: 1000, category: "ultra", type: "webgl", description: "Canvas (WebGL)", required: ["canvas","webgl"], imageAsset: "assets/json/spritesheet.json"},
 		{id: 101, object: "Sprite", maxObjects: 5000, category: "ultra", type: "webgl", description: "Canvas (WebGL)", required: ["canvas","webgl"], imageAsset: "assets/json/spritesheet.json"},
 		{id: 102, object: "Sprite", maxObjects: 15000, category: "ultra", type: "webgl", description: "Canvas (WebGL)", required: ["canvas","webgl"], imageAsset: "assets/json/spritesheet.json"},
-		{id: 103, object: "Filter", maxObjects: 6, category: "high", type: "cssfilters", description: "CSS Filters (GPU Layers)", forceGPU: true, required: ["cssfilters"], filterSequence: ['blur','grayscale','brightness','hue-rotate','sepia','opacity']}
-	
+		{id: 103, object: "Filter", maxObjects: 6, category: "high", type: "cssfilters", description: "CSS Filters (GPU Layers)", forceGPU: true, required: ["cssfilters"], filterSequence: ['blur','blur','blur','blur','blur','blur']},
+		{id: 104, object: "Filter", maxObjects: 6, category: "high", type: "cssfilters", description: "CSS Filters (GPU Layers)", forceGPU: true, required: ["cssfilters"], filterSequence: ['grayscale','grayscale','grayscale','grayscale','grayscale','grayscale']},
+		{id: 105, object: "Filter", maxObjects: 6, category: "high", type: "cssfilters", description: "CSS Filters (GPU Layers)", forceGPU: true, required: ["cssfilters"], filterSequence: ['brightness','brightness','brightness','brightness','brightness','brightness']},
+		{id: 106, object: "Filter", maxObjects: 6, category: "high", type: "cssfilters", description: "CSS Filters (GPU Layers)", forceGPU: true, required: ["cssfilters"], filterSequence: ['hue-rotate','hue-rotate','hue-rotate','hue-rotate','hue-rotate','hue-rotate']},
+		{id: 107, object: "Filter", maxObjects: 6, category: "high", type: "cssfilters", description: "CSS Filters (GPU Layers)", forceGPU: true, required: ["cssfilters"], filterSequence: ['sepia','sepia','sepia','sepia','sepia','sepia']},
+		{id: 108, object: "Filter", maxObjects: 6, category: "high", type: "cssfilters", description: "CSS Filters (GPU Layers)", forceGPU: true, required: ["cssfilters"], filterSequence: ['opacity','opacity','opacity','opacity','opacity','opacity']},
+		{id: 109, object: "Filter", maxObjects: 6, category: "high", type: "cssfilters", description: "CSS Filters (GPU Layers)", forceGPU: true, required: ["cssfilters"], filterSequence: ['blur','grayscale','brightness','hue-rotate','sepia','opacity']}
+
 	];
+
+	
  return tests;
 }
 
