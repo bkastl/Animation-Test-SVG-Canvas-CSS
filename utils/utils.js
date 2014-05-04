@@ -1,5 +1,8 @@
+/*Math*/
 function avgArray(arr) {
 		var sum = 0, i = 0;
+		if (arr.length === 0) return null;
+
 		while (i<arr.length) {
 			sum += parseInt(arr[i]);
 			++i;
@@ -7,6 +10,39 @@ function avgArray(arr) {
 
 		return  sum/arr.length;
 }
+
+
+function to_rad(deg) {
+    return deg * Math.PI / 180;
+}
+
+
+function variance(arr) {
+        
+        if (arr.length === 0) return null;
+
+        var mean_value = avgArray(arr),
+            deviations = [];
+         
+        var i = 0;
+        while(i < arr.length) {
+            deviations.push(Math.pow(arr[i] - mean_value, 2));
+            ++i;
+        }
+        
+       
+        return avgArray(deviations);
+}
+
+
+function standard_deviation(arr) {
+        
+        if (arr.length === 0) return null;
+
+        return Math.sqrt(variance(arr));
+}
+
+/*Colors*/
 
 function getRandomColorHex() {
 	var letters = '0123456789ABCDEF'.split('');
@@ -21,10 +57,7 @@ function getRandomColorRGB() {
 	return [Math.round(Math.random() * 256), Math.round(Math.random() * 256), Math.round(Math.random() * 256)];
 }
 
-function to_rad(deg) {
-    return deg * Math.PI / 180;
-}
-
+/*DOM*/
 function generateUID() {
 	var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
 	var uid = '';
@@ -34,7 +67,7 @@ function generateUID() {
 	
 	return uid;
 }
-
+/*Data*/
 function preloadImages(images, countCallback, callback) {
     
     var count  = images.length;

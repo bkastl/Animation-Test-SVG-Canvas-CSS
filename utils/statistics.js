@@ -1,7 +1,7 @@
 function Statistics(selectedTests) {
 	var self = this;
 	var frameSmoothing = 30, minMS, maxMS, frames, breaks,
-	sumMS, currentFPS, maxFPS, minFPS, prevTime, fpsSamples, sumFPS, didbreak, measuredFrames;
+	sumMS, currentFPS, maxFPS, minFPS, prevTime, fpsSamples, sumFPS, didbreak, measuredFrames, fpsArray = [], msArray = [];
 	var fpsNode = document.getElementById('fps'), currentTestNode = document.getElementById('currentTest'), currentTestNumber = document.getElementById('currentTestNumber'), totalTests = document.getElementById('totalTests');
 	var browserOject;
 	var remainingFrames = selectedTests * testDuration, totalSkippedFrames = 0, totalSkippedTests = 0;
@@ -33,7 +33,7 @@ function Statistics(selectedTests) {
 
 	this.resetCounts = function() {
 		minMS = Infinity, maxMS = 0, frames = 0, breaks = 0, measuredFrames = 0,
-		sumMS = 0, sumFPS = 0, fpsSamples = 0, maxFPS = 0, minFPS = Infinity, prevTime = setTimestamp(), didbreak = false;
+		sumMS = 0, sumFPS = 0, fpsSamples = 0, maxFPS = 0, minFPS = Infinity, prevTime = setTimestamp(), didbreak = false, fpsArray = [], msArray = [];
 	},
 
 	this.startTest = function () {
@@ -50,7 +50,7 @@ function Statistics(selectedTests) {
 	this.update = function(frameTime) {
 		minMS = Math.min(minMS, frameTime);
 		maxMS = Math.max(maxMS, frameTime);
-
+		msArray.push(frameTime);
 		sumMS += frameTime;
 
 		--remainingFrames;
@@ -65,6 +65,7 @@ function Statistics(selectedTests) {
 		if (frames > frameSmoothing) {
 			
 				currentFPS = Math.round((frames*1000) / (now - prevTime));
+				if (currentFPS > 60) {currentFPS = 60;}
 				if( currentFPS < breakUnderFPS) {
 					++breaks;
 					if (breaks > stopAfterBreaks) {
@@ -76,6 +77,7 @@ function Statistics(selectedTests) {
 					self.killTest();
 
 				}
+				fpsArray.push(currentFPS);
 				sumFPS += currentFPS;
 				++fpsSamples;
 				maxFPS = Math.max(maxFPS, currentFPS);
@@ -94,15 +96,18 @@ function Statistics(selectedTests) {
 		var testavgFPS = sumFPS/fpsSamples;
 
 		if (isNaN(testavgFPS)) {testavgFPS = 0;}
+		
 		var testResult = {
 			testDescription: testSequence[num],
 			testNumber: testSequence[num].id,
 			minMS: minMS,
 			maxMS: maxMS,
 			sumMS: sumMS,
+			msDeviation: standard_deviation(msArray),
 			minFPS: minFPS,
 			maxFPS: maxFPS,
 			avgFPS: testavgFPS,
+			fpsDeviation: standard_deviation(fpsArray),
 			testDidNotFinish: didbreak,
 			measuredFrames: measuredFrames
 		};
