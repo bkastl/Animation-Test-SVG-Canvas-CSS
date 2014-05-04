@@ -43,6 +43,15 @@
 		left: 50%;
 	}
 
+	.imagefilter {
+		float: left;
+		
+	}
+
+	#run {
+		font-size: 3em;
+	}
+
 	@-webkit-keyframes height
 	{
 		from {-webkit-transform: scaleY(0);}
@@ -153,7 +162,9 @@
 				
 			</div>
 			<div id="totalteststorun">Running all tests will take approx. <span id="estimatedtimetorun"></span>.</div>
-			<button id="run">Run the tests!</button>
+			<p>
+				<button id="run">Run the tests!</button>
+			</p>
 		</div>
 	</section>
 	<section id="testrunner">
@@ -193,6 +204,7 @@
 	<script src="objects/Line.js"></script>
 	<script src="objects/Spinner.js"></script>
 	<script src="objects/Sprite.js"></script>
+	<script src="objects/Filter.js"></script>
 	<script>
 		var setTimestamp, setTranslate;
 		

@@ -104,7 +104,9 @@ function TestSequence()
 		{id: 99, object: "Sprite", maxObjects: 7500, category: "ultra", type: "canvasbuffer", description: "Canvas 2D (Spritefile PNG)", required: ["canvas"], imageAsset: 1},
 		{id: 100, object: "Sprite", maxObjects: 1000, category: "ultra", type: "webgl", description: "Canvas (WebGL)", required: ["canvas","webgl"], imageAsset: "assets/json/spritesheet.json"},
 		{id: 101, object: "Sprite", maxObjects: 5000, category: "ultra", type: "webgl", description: "Canvas (WebGL)", required: ["canvas","webgl"], imageAsset: "assets/json/spritesheet.json"},
-		{id: 102, object: "Sprite", maxObjects: 15000, category: "ultra", type: "webgl", description: "Canvas (WebGL)", required: ["canvas","webgl"], imageAsset: "assets/json/spritesheet.json"}
+		{id: 102, object: "Sprite", maxObjects: 15000, category: "ultra", type: "webgl", description: "Canvas (WebGL)", required: ["canvas","webgl"], imageAsset: "assets/json/spritesheet.json"},
+		{id: 103, object: "Filter", maxObjects: 6, category: "high", type: "cssfilters", description: "CSS Filters (GPU Layers)", forceGPU: true, required: ["cssfilters"], filterSequence: ['blur','grayscale','brightness','hue-rotate','sepia','opacity']}
+	
 	];
  return tests;
 }

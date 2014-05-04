@@ -2,9 +2,9 @@ function Stage(stage, statistics) {
 	var self = this,
 	
 	tick = null, 
-	previousTimeStamp = null, framesPainted = 0, stageElements = [], individualObjects = false, buffer = undefined, displayContext = undefined;
+	previousTimeStamp = null, framesPainted = 0, stageElements = [], individualObjects = false, buffer = undefined, forceGPULayers = false, displayContext = undefined;
 
-	this.prepareStage = function (type, offscreen, createIndividualElements) {
+	this.prepareStage = function (type, offscreen, createIndividualElements, forceGPU) {
 		framesPainted = 0;
 		currentType = type;
 		
@@ -14,6 +14,15 @@ function Stage(stage, statistics) {
 		else {
 			individualObjects = false;
 		}
+
+
+		if (forceGPULayers != undefined) {
+			forceGPULayers = forceGPU;
+		}
+		else {
+			forceGPULayers = false;
+		}
+
 		if (!individualObjects) {
 		switch(type) {
 			case "canvas":
@@ -45,6 +54,7 @@ function Stage(stage, statistics) {
 			case "htmltransition":
 			case "htmlanimation":
 			case "htmlanimationsvg":
+			case "cssfilters":
 				stage.style.width = stageWidth + 'px';
 				stage.style.height = stageHeight + 'px';
 			break;
@@ -59,6 +69,9 @@ function Stage(stage, statistics) {
 			break;
 		}
 		}
+
+		
+
 		if (offscreen) {
 			stage.style.visibility = "hidden";
 		}
@@ -134,6 +147,9 @@ function Stage(stage, statistics) {
 				case 'Sprite':
 					stageElements.push(new Sprite(currentType));
 				break;
+				case 'Filter':
+					stageElements.push(new Filter(currentType,i, testSequence[currentTest].filterSequence[i], testSequence[currentTest].forceGPU));
+				break;
 			}
 			
 		}
@@ -162,23 +178,23 @@ function Stage(stage, statistics) {
 
 		
 		if (!individualObjects) {
-		switch(currentType) {
-			case 'canvas':
-			case 'canvasbuffer':
-			case 'canvassvg':
-				context.clearRect(0, 0, stageWidth, stageHeight);
-			break;
-			case 'svgrebuild':
-				while (svg.hasChildNodes()) {
-					svg.removeChild(svg.lastChild);
-				}
-			break;
-			case 'webgl':
-				webglRenderer.render(context);
-			
-			break;
-			
-		}
+			switch(currentType) {
+				case 'canvas':
+				case 'canvasbuffer':
+				case 'canvassvg':
+					context.clearRect(0, 0, stageWidth, stageHeight);
+				break;
+				case 'svgrebuild':
+					while (svg.hasChildNodes()) {
+						svg.removeChild(svg.lastChild);
+					}
+				break;
+				case 'webgl':
+					webglRenderer.render(context);
+				
+				break;
+				
+			}
 		}
 		for (var stageElement in stageElements)
 		{
@@ -223,10 +239,10 @@ function Stage(stage, statistics) {
 			copySource = undefined;
 			displayContext = undefined;
 		}
+
 		while (stage.hasChildNodes()) {
 			stage.removeChild(stage.lastChild);
 		}
-
 		framesPainted = 0, context = null, svg = null, previousTimeStamp = null, stageElements = [], webglRenderer = null, individualObjects = false, imageAsset = null;
 	}
 

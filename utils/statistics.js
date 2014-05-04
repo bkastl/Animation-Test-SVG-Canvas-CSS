@@ -1,7 +1,7 @@
 function Statistics(selectedTests) {
 	var self = this;
 	var frameSmoothing = 30, minMS, maxMS, frames, breaks,
-	sumMS, currentFPS, maxFPS, minFPS, prevTime, fpsSamples, sumFPS, didbreak, measuredFrames, fpsArray = [], msArray = [];
+	sumMS, currentFPS, maxFPS, minFPS, prevTime, fpsSamples, sumFPS, didbreak, measuredFrames, fpsArray = [];
 	var fpsNode = document.getElementById('fps'), currentTestNode = document.getElementById('currentTest'), currentTestNumber = document.getElementById('currentTestNumber'), totalTests = document.getElementById('totalTests');
 	var browserOject;
 	var remainingFrames = selectedTests * testDuration, totalSkippedFrames = 0, totalSkippedTests = 0;
@@ -33,7 +33,7 @@ function Statistics(selectedTests) {
 
 	this.resetCounts = function() {
 		minMS = Infinity, maxMS = 0, frames = 0, breaks = 0, measuredFrames = 0,
-		sumMS = 0, sumFPS = 0, fpsSamples = 0, maxFPS = 0, minFPS = Infinity, prevTime = setTimestamp(), didbreak = false, fpsArray = [], msArray = [];
+		sumMS = 0, sumFPS = 0, fpsSamples = 0, maxFPS = 0, minFPS = Infinity, prevTime = setTimestamp(), didbreak = false, fpsArray = [];
 	},
 
 	this.startTest = function () {
@@ -50,7 +50,7 @@ function Statistics(selectedTests) {
 	this.update = function(frameTime) {
 		minMS = Math.min(minMS, frameTime);
 		maxMS = Math.max(maxMS, frameTime);
-		msArray.push(frameTime);
+		
 		sumMS += frameTime;
 
 		--remainingFrames;
@@ -103,7 +103,6 @@ function Statistics(selectedTests) {
 			minMS: minMS,
 			maxMS: maxMS,
 			sumMS: sumMS,
-			msDeviation: standard_deviation(msArray),
 			minFPS: minFPS,
 			maxFPS: maxFPS,
 			avgFPS: testavgFPS,

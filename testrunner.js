@@ -1,5 +1,5 @@
 function TestRunner(sequence) {
-	var hash = window.location.hash;
+	
 	var testselects = document.querySelectorAll('input[type="checkbox"]');
 	var testselectsSingleTest = document.querySelectorAll('.selectsingletest');
 	var testselectsAllTests = document.querySelectorAll('.selectsubgroup');
@@ -11,12 +11,7 @@ function TestRunner(sequence) {
 	var self = this;
 	document.getElementById('start').className = "show";
 
-	function parseHash(hash) {
-		/*allow skipping of tests*/
-		//Syntax :#tests=al
-		//#tests=svg,canvas,etc.
-		//#object=all
-	}
+	
 
 
 	function testLength(key, method) {
@@ -291,9 +286,9 @@ function TestRunner(sequence) {
 
 		
 
-		var featureSet = [Modernizr.canvas, Modernizr.svg, Modernizr.smil, Modernizr.csstransforms, Modernizr.csstransforms3d, Modernizr.csstransitions, Modernizr.cssanimations];
-		var featureSetLinks = ["canvas","svg","smil","csstransforms","useless","csstransitions","cssanimations"];
-		var featureSetDescription = ["Canvas","SVG","SVG Animations","CSS Transforms 2D","CSS Transforms 3D","CSS Transitions","CSS Animations"];
+		var featureSet = [Modernizr.canvas, Modernizr.svg, Modernizr.smil, Modernizr.csstransforms, Modernizr.csstransforms3d, Modernizr.csstransitions, Modernizr.cssanimations, Modernizr.cssfilters,Modernizr.svgfilters];
+		var featureSetLinks = ["canvas","svg","smil","csstransforms","useless","csstransitions","cssanimations","cssfilters","svgfilters"];
+		var featureSetDescription = ["Canvas","SVG","SVG Animations","CSS Transforms 2D","CSS Transforms 3D","CSS Transitions","CSS Animations","CSS Filters","SVG Filters"];
 		getTestTypeCount();
 		var totalTests = new TestSequence().length, supportedTests;
 		var descriptiontoEnter = ""; 
@@ -361,7 +356,7 @@ function TestRunner(sequence) {
 		var skippedTestsCount = 0;
 		while (l < maxTestIndex) {
 			
-			if (sequence[l].type.indexOf(type) > -1) {
+			if (sequence[l].type.indexOf(type) > -1 && sequence[l].subtest !== true) {
 				sequence[l].skip = true;
 				++skippedTestsCount;
 				
