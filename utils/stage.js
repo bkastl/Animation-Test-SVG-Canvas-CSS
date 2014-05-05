@@ -51,6 +51,7 @@ function Stage(stage, statistics) {
 			break;
 			case "html":
 			case "htmlposition":
+			case "htmlheight":
 			case "htmltransition":
 			case "htmlanimation":
 			case "htmlanimationsvg":
@@ -212,7 +213,7 @@ function Stage(stage, statistics) {
 		statistics.update(paintTime);
 
 		previousTimeStamp = currentTime;
-
+		
 
 		if (framesPainted > (testDuration -1)) {
 			self.endAnimationTest();

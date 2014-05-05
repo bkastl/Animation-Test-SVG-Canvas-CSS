@@ -125,6 +125,17 @@ function Bar(type, count, i) {
 		domNode.id = uid;
 		stage.appendChild(domNode);
 		break;
+		case "htmlheight":
+		var domNode = document.createElement('div');
+		domNode.style.width = width + 'px';
+		domNode.style.height = 0 + 'px';
+		domNode.style.backgroundColor = color;
+		domNode.style.bottom = 0 + 'px';
+		domNode.style.left = x + 'px';
+		
+		domNode.id = uid;
+		stage.appendChild(domNode);
+		break;
 		case "htmlanimation":
 		var domNode = document.createElement('div');
 		domNode.style.width = width + 'px';
@@ -184,6 +195,9 @@ function Bar(type, count, i) {
 				case "svgcsstransforms":
 				
 				domNode.style[Modernizr.prefixed('transform')] = 'scaleY('+nextPercentage+')';
+				break;
+				case "htmlheight":
+				domNode.style.height = nextHeight + 'px';
 				break;
 				case "htmltransition":
 

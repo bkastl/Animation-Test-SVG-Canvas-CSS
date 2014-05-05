@@ -94,6 +94,8 @@ this.draw = function (timeOffset) {
 		break;
 
 	}
+	var translateX = (nextX-startX);
+	var translateY = (nextY-startY);
 	switch(type) {
 
 		case "canvas":
@@ -117,9 +119,9 @@ this.draw = function (timeOffset) {
 		break;
 		case "html":
 		case "svgcsstransforms":
-		var translateX = (nextX-startX);
-		var translateY = (nextY-startY);
-		domNode.style[Modernizr.prefixed('transform')] = setTranslate(translateX,translateY);
+		
+		domNode.style['-webkit-transform'] = setTranslate(translateX,translateY);
+		domNode.style['transform'] = setTranslate(translateX,translateY);
 		break;
 
 		case "htmlposition":

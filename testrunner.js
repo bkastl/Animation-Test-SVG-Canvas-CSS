@@ -108,9 +108,9 @@ function TestRunner(sequence) {
 	function clearCheckboxes(key) {
 		
 		Array.prototype.forEach.call(testselectsRequirements, function(el, i){
-			
+			el.removeAttribute('disabled');
 			if (el.getAttribute('data-required').indexOf(key) > -1) {
-				el.removeEventListener('click');
+				el.removeEventListener('click',selectTest);
 				el.setAttribute('disabled',true);
 				el.checked = false;
 			}
@@ -308,6 +308,7 @@ function TestRunner(sequence) {
 
 			}
 			else {
+				
 				clearSequence(featureSetLinks[i],'required');
 				clearCheckboxes(featureSetLinks[i]);
 			}
