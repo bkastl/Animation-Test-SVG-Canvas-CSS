@@ -11,6 +11,12 @@ function avgArray(arr) {
 		return  sum/arr.length;
 }
 
+function roundDecimal(val,n) {
+	val = (Math.round(val * n) / n);
+   	return val;
+
+}
+
 
 function to_rad(deg) {
     return deg * Math.PI / 180;

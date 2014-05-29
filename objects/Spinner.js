@@ -13,7 +13,7 @@ function Spinner(type, count, i) {
 	x = elementInRow * size;
 	y = row * size;
 	
-	var animationDuration = durationStep*steps /60 + 's';
+	var animationDuration = roundDecimal(durationStep*steps /60,10) + 's';
 	
 	
 

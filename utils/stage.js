@@ -4,6 +4,8 @@ function Stage(stage, statistics) {
 	tick = null, 
 	previousTimeStamp = null, framesPainted = 0, stageElements = [], individualObjects = false, buffer = undefined, forceGPULayers = false, displayContext = undefined;
 
+	var testInterval;
+
 	this.prepareStage = function (type, offscreen, createIndividualElements, forceGPU) {
 		framesPainted = 0;
 		currentType = type;
@@ -151,22 +153,29 @@ function Stage(stage, statistics) {
 				case 'Filter':
 					stageElements.push(new Filter(currentType,i, testSequence[currentTest].filterSequence[i], testSequence[currentTest].forceGPU));
 				break;
+				case 'Cube':
+					stageElements.push(new Cube(currentType));
+				break;
 			}
 			
 		}
 		
 		statistics.startTest();
 		
-		this.animateStage();
-		
-		
-		
+		if (testSequence[currentTest].useInterval) {
+			testInterval = window.setInterval(this.animateStage,1000/60);
+		}
+		else {
+			this.animateStage();
+		}
 		
 	},
 
 	this.animateStage = function() {
+		if (!testSequence[currentTest].useInterval) {
+			tick = requestAnimationFrame(self.animateStage);
 		
-		tick = requestAnimationFrame(self.animateStage);
+		}
 		var frameStartTimeStamp = setTimestamp();
 		var currentTime = +new Date;
 
@@ -221,9 +230,14 @@ function Stage(stage, statistics) {
 	},
 
 	this.endAnimationTest= function() {
-			cancelAnimationFrame(tick);
-			tick = null;
-			clearStage();
+			if (!testSequence[currentTest].useInterval) {
+				cancelAnimationFrame(tick);
+				tick = null;
+			}
+			else {
+				window.clearInterval(testInterval);
+			}
+			//clearStage();
 			statistics.endTest(currentTest);
 			++currentTest;
 			if (currentTest < testSequence.length) {

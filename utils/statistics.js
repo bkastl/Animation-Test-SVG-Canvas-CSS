@@ -9,6 +9,11 @@ function Statistics(selectedTests) {
 	skippedFramesNode = document.getElementById('skippedFrames'),
 	skippedTestsNode = document.getElementById('skippedtests'),
 	testResults = [], passedTests = [];
+	var countPaintCount = false;
+	if (window.mozPaintCount !== undefined) {
+		var paintCountStart = 0, paintCountEnd = Infinity;
+		countPaintCount = true;
+	}
 
 	this.addBrowser = function (browser) {
 		browserOject = browser;
@@ -38,6 +43,9 @@ function Statistics(selectedTests) {
 
 	this.startTest = function () {
 	 	self.resetCounts();
+	 	if (countPaintCount) {
+	 		paintCountStart = window.mozPaintCount;
+	 	}
 		currentTestNode.innerHTML = testSequence[currentTest].object+ "*"+testSequence[currentTest].maxObjects +" ("+testSequence[currentTest].description+")";
 		currentTestNumber.innerHTML = currentTest+1, remainingFramesTest = testDuration;
 		totalTests.innerHTML = testSequence.length;
@@ -97,6 +105,14 @@ function Statistics(selectedTests) {
 
 		if (isNaN(testavgFPS)) {testavgFPS = 0;}
 		
+		var paintFPS = undefined;
+
+		if (countPaintCount) {
+	 		paintCountEnd = window.mozPaintCount;
+	 		var paintCount = paintCountEnd - paintCountStart;
+	 		var paintFPS = Math.round(paintCount/(measuredFrames/60));
+	 	}
+
 		var testResult = {
 			testDescription: testSequence[num],
 			testNumber: testSequence[num].id,
@@ -108,7 +124,8 @@ function Statistics(selectedTests) {
 			avgFPS: testavgFPS,
 			fpsDeviation: standard_deviation(fpsArray),
 			testDidNotFinish: didbreak,
-			measuredFrames: measuredFrames
+			measuredFrames: measuredFrames,
+			paintFPS: paintFPS
 		};
 		
 		if (!didbreak) {

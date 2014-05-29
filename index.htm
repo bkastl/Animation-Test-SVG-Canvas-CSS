@@ -43,9 +43,8 @@
 		left: 50%;
 	}
 
-	.imagefilter {
+	.imagefilter, #stage canvas, #stage svg {
 		float: left;
-
 	}
 
 	#run {
@@ -61,6 +60,17 @@
 	{
 		from {transform: scaleY(0);}
 		to {transform: scaleY(1);}
+	}
+
+	@-webkit-keyframes cube
+	{
+		from {-webkit-transform: translate3d(0,0,0);}
+		to {-webkit-transform: translate3d(800px,0,0);}
+	}
+	@keyframes cube
+	{
+		from {transform: translate3d(0,0,0);}
+		to {transform: translate3d(800px,0,0);}
 	}
 
 	@-webkit-keyframes rotate
@@ -169,6 +179,7 @@
 			<p>
 				<button id="run">Run the tests!</button>
 			</p>
+
 		</div>
 	</section>
 	<section id="testrunner">
@@ -203,6 +214,7 @@
 	<script src="testrunner.js"></script>
 	<script src="testsequence.js"></script>
 	<script src="objects/Particle.js"></script>
+	<script src="objects/Cube.js"></script>
 	<script src="objects/Bar.js"></script>
 	<script src="objects/Pie.js"></script>
 	<script src="objects/Line.js"></script>

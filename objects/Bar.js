@@ -4,11 +4,11 @@ function Bar(type, count, i) {
 	color = getRandomColorHex(), uid = generateUID(),
 	height = 0,
 	maxV = 5,
-	velocity = maxV - Math.random()*5 + 1, number = i,
+	velocity = maxV - roundDecimal(Math.random()*5,10) + 1, number = i,
 	x = number*width,
 	y = stageHeight - height,
 	startPercentage = 0,
-	animationDuration =(maxHeight/velocity/60) +'s', start = true, triggerNextFrame = false, blockNextFrame = false;
+	animationDuration =roundDecimal((maxHeight/velocity/60),10) +'s', start = true, triggerNextFrame = false, blockNextFrame = false;
 	
 	switch (type) {
 		case "svg":

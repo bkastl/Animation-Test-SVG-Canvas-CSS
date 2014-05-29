@@ -3,7 +3,7 @@ function Particle(type) {
 var angle = Math.PI * 2 * Math.random(),
 maxV = 500,
 velocity = maxV - Math.random()*500 + 10,
-diameter = Math.random()*10+5,
+diameter = roundDecimal(Math.random()*10+5,10),
 x = Math.random()*stageWidth,
 y = Math.random()*stageHeight,
 startX = x, startY = y,
@@ -106,8 +106,8 @@ this.draw = function (timeOffset) {
 		context.fill();
 		break;
 		case "webgl":
-		el.position.x = nextX -diameter;
-		el.position.y = nextY -diameter;
+		el.position.x = nextX - (diameter*0.5);
+		el.position.y = nextY - (diameter*0.5);
 		break;
 		case "svg":
 		domNode.setAttribute("cx", nextX + diameter);
