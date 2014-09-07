@@ -136,6 +136,80 @@ function Filter(type, i, filtertype, forceGPU) {
 		break;
 	}
 
+	var CanvasFilters = {};
+
+	CanvasFilters.grayscale = function(pixels, strength) {
+		var d = pixels.data;
+		for (var i=0; i<d.length; i+=4) {
+			var r = d[i];
+			var g = d[i+1];
+			var b = d[i+2];
+		
+			//final Value
+			var v = 0.2126*r + 0.7152*g + 0.0722*b;
+			
+			d[i] = Math.round(r*(1-strength)+v*strength);
+			d[i+1] = Math.round(g*(1-strength)+v*strength);
+			d[i+2] = Math.round(b*(1-strength)+v*strength);
+		
+		}
+		return pixels;
+	};
+
+	CanvasFilters.sepia = function(pixels, strength) {
+		var d = pixels.data;
+		for (var i=0; i<d.length; i+=4) {
+			var r = d[i];
+			var g = d[i+1];
+			var b = d[i+2];
+		
+			//final Value
+			var v = 0.3*r + 0.59*g + 0.11*b;
+			
+			d[i] = Math.round(r*(1-strength)+(v+60)*strength);
+			d[i+1] = Math.round(g*(1-strength)+(v+20)*strength);
+			d[i+2] = Math.round(b*(1-strength)+(v-10)*strength);
+		
+		}
+		return pixels;
+	};
+
+	CanvasFilters.brightness = function(pixels, strength) {
+		var d = pixels.data;
+		for (var i=0; i<d.length; i+=4) {
+			var r = d[i];
+			var g = d[i+1];
+			var b = d[i+2];
+		
+			//final Value
+			
+			
+			d[i] = Math.round(r-(strength-1)*2.55);
+			d[i+1] = Math.round(g-(strength-1)*2.55);
+			d[i+2] = Math.round(b-(strength-1)*2.55);
+		
+		}
+		return pixels;
+	};
+
+	CanvasFilters.hueRotate = function(pixels, strength) {
+		var d = pixels.data;
+		for (var i=0; i<d.length; i+=4) {
+			var r = d[i];
+			var g = d[i+1];
+			var b = d[i+2];
+		
+			//final Value
+			
+			
+			d[i] = r;
+			d[i+1] = g;
+			d[i+2] = b;
+		
+		}
+		return pixels;
+	};
+
 	this.draw = function () {
 
 		var nextValue = currentValue + filterMaxValueSelf / timeFromZero * direction;
@@ -154,6 +228,39 @@ function Filter(type, i, filtertype, forceGPU) {
 						
 						ctx.globalAlpha = roundDecimal(nextValue/100,100);
 						ctx.drawImage(img,0,0);
+					break;
+
+					case "grayscale":
+						
+						ctx.drawImage(img,0,0);
+						var imageData = ctx.getImageData(0,0,width,height);
+						
+						var processedData = CanvasFilters.grayscale(imageData,nextValue/100);
+						
+						
+						ctx.putImageData(processedData, 0,0)
+					break;
+
+					case "sepia":
+						
+						ctx.drawImage(img,0,0);
+						var imageData = ctx.getImageData(0,0,width,height);
+						
+						var processedData = CanvasFilters.sepia(imageData,nextValue/100);
+						
+						
+						ctx.putImageData(processedData, 0,0)
+					break;
+
+					case "brightness":
+						
+						ctx.drawImage(img,0,0);
+						var imageData = ctx.getImageData(0,0,width,height);
+						
+						var processedData = CanvasFilters.brightness(imageData,nextValue);
+						
+						
+						ctx.putImageData(processedData, 0,0)
 					break;
 					
 

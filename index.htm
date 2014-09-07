@@ -119,6 +119,7 @@
 					<div><input type="checkbox" id="select_object_line" value="Line" class="selectobjecttype" checked="true"><label for="select_object_line">Line Chart (drawing performance)</label></div>
 					<div><input type="checkbox" id="select_object_spinner" value="Spinner" class="selectobjecttype" checked="true"><label for="select_object_spinner">Spinner (animation performance)</label></div>
 					<div><input type="checkbox" id="select_object_sprite" value="Sprite" class="selectobjecttype" checked="true"><label for="select_object_sprite">Sprite (bitmap / spriting performance)</label></div>
+					<div><input type="checkbox" id="select_object_Cube" value="Cube" class="selectobjecttype" checked="true"><label for="select_object_Cube">Cube (animation performance)</label></div>
 
 				</div>
 				<h2>Test Complexity</h2>
@@ -127,7 +128,7 @@
 					<div><input type="checkbox" id="select_iterations_low" value="low" class="selectiterations" checked="true"><label for="select_iterations_low">Low (max. 100 iterations)</label></div>
 					<div><input type="checkbox" id="select_iterations_medium" value="medium" class="selectiterations" checked="true"><label for="select_iterations_medium">Medium (max. 250 iterations)</label></div>
 					<div><input type="checkbox" id="select_iterations_high" value="high" class="selectiterations" checked="true"><label for="select_iterations_high">High (max. 1000 iterations)</label></div>
-					<div><input type="checkbox" id="select_iterations_ultra" value="ultra" class="selectiterations" checked="true"><label for="select_iterations_ultra">Ultra (up tp 15000 iterations!)</label></div>
+					<div><input type="checkbox" id="select_iterations_ultra" value="ultra" class="selectiterations" checked="true"><label for="select_iterations_ultra">Ultra (up to 15000 iterations!)</label></div>
 
 				</div>
 				<h2>Test Methods</h2>
@@ -227,7 +228,7 @@
 		
 	
 		var currentTest = 0,
-		testDuration = 360,
+		testDuration = 300,
 		stageWidth = 800,
 		stageHeight= 600,
 		stage = document.getElementById('stage'),

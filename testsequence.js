@@ -102,6 +102,11 @@ function TestSequence()
 
 	];
 
+/*var tests = [
+	{id: 111, object: "Filter", maxObjects: 6, category: "high", type: "canvas", description: "CSS Filters (GPU Layers)", required: ["cssanimations"], filterSequence: ['opacity','grayscale','sepia','brightness','grayscale','grayscale'], createIndividualElements: true}
+
+]; */
+
 var testsInFrames= [
 		{id: 43, object: "Bar", maxObjects: 80, category: "low", type: "htmltransition", description: "HTML with CSS Transitions", required: ["csstransitions"]},
 		{id: 44, object: "Bar", maxObjects: 80, category: "low", type: "htmlanimation", description: "HTML with CSS Animations", required: ["cssanimations"]},
