@@ -194,17 +194,19 @@ function Filter(type, i, filtertype, forceGPU) {
 
 	CanvasFilters.hueRotate = function(pixels, strength) {
 		var d = pixels.data;
-		for (var i=0; i<d.length; i+=4) {
-			var r = d[i];
-			var g = d[i+1];
-			var b = d[i+2];
 		
-			//final Value
+		for (var i=0; i<d.length; i+=4) {
+			var hsl = rgbToHsl(d[i], d[i+1], d[i+2]);
+			hsl[0] = hsl[0] + strength;
+			if (hsl[0] > 1) {
+				hsl[0] -= 1;
+			}
 			
 			
-			d[i] = r;
-			d[i+1] = g;
-			d[i+2] = b;
+			var rgb = hslToRgb(hsl[0],hsl[1],hsl[2]);
+			d[i] = rgb[0];
+			d[i+1] = rgb[1];
+			d[i+2] = rgb[2];
 		
 		}
 		return pixels;
@@ -258,6 +260,17 @@ function Filter(type, i, filtertype, forceGPU) {
 						var imageData = ctx.getImageData(0,0,width,height);
 						
 						var processedData = CanvasFilters.brightness(imageData,nextValue);
+						
+						
+						ctx.putImageData(processedData, 0,0)
+					break;
+					
+					case "hue-rotate":
+						
+						ctx.drawImage(img,0,0);
+						var imageData = ctx.getImageData(0,0,width,height);
+						
+						var processedData = CanvasFilters.hueRotate(imageData,(nextValue/180)*0.5);
 						
 						
 						ctx.putImageData(processedData, 0,0)
