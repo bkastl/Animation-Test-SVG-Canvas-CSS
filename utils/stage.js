@@ -237,7 +237,7 @@ function Stage(stage, statistics) {
 			else {
 				window.clearInterval(testInterval);
 			}
-			/*clearStage();
+			clearStage();
 			statistics.endTest(currentTest);
 			++currentTest;
 			if (currentTest < testSequence.length) {
@@ -245,7 +245,7 @@ function Stage(stage, statistics) {
 			}
 			else {
 				statistics.send();
-			}*/
+			}
 	}
 
 	function clearStage() {
