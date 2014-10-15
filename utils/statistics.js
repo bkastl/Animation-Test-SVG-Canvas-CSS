@@ -1,6 +1,6 @@
 function Statistics(selectedTests) {
 	var self = this;
-	var frameSmoothing = 30, minMS, maxMS, frames, breaks,
+	var frameSmoothing = 30, minMS, maxMS, frames, breaks,firstFrameTime,
 	sumMS, currentFPS, maxFPS, minFPS, prevTime, fpsSamples, sumFPS, didbreak, measuredFrames, fpsArray = [];
 	var fpsNode = document.getElementById('fps'), currentTestNode = document.getElementById('currentTest'), currentTestNumber = document.getElementById('currentTestNumber'), totalTests = document.getElementById('totalTests');
 	var browserOject;
@@ -37,7 +37,7 @@ function Statistics(selectedTests) {
 	},
 
 	this.resetCounts = function() {
-		minMS = Infinity, maxMS = 0, frames = 0, breaks = 0, measuredFrames = 0,
+		minMS = Infinity, maxMS = 0, frames = 0, breaks = 0, measuredFrames = 0, firstFrameTime = 0,
 		sumMS = 0, sumFPS = 0, fpsSamples = 0, maxFPS = 0, minFPS = Infinity, prevTime = setTimestamp(), didbreak = false, fpsArray = [];
 	},
 
@@ -53,6 +53,10 @@ function Statistics(selectedTests) {
 		if (testSequence[currentTest].offscreen) {
 			currentTestNode.innerHTML = currentTestNode.innerHTML + " Offscreen Test, no Test result visible";
 		}
+	},
+
+	this.setFirstFrameTime = function(firstFrameTimeComputed) {
+		firstFrameTime = firstFrameTimeComputed;
 	},
 
 	this.update = function(frameTime) {
@@ -116,6 +120,7 @@ function Statistics(selectedTests) {
 		var testResult = {
 			testDescription: testSequence[num],
 			testNumber: testSequence[num].id,
+			firstFrameTime: firstFrameTime,
 			minMS: minMS,
 			maxMS: maxMS,
 			sumMS: sumMS,

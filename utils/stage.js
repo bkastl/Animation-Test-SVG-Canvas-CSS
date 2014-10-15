@@ -1,7 +1,7 @@
 function Stage(stage, statistics) {
 	var self = this,
 	
-	tick = null, 
+	tick = null, timeToFirstFrame = null,
 	previousTimeStamp = null, framesPainted = 0, stageElements = [], individualObjects = false, buffer = undefined, forceGPULayers = false, displayContext = undefined;
 
 	var testInterval;
@@ -17,6 +17,7 @@ function Stage(stage, statistics) {
 			individualObjects = false;
 		}
 
+		timeToFirstFrame = setTimestamp();
 
 		if (forceGPULayers != undefined) {
 			forceGPULayers = forceGPU;
@@ -219,6 +220,10 @@ function Stage(stage, statistics) {
 		
 		
 		++framesPainted;
+		if (framesPainted == 1) {
+			timeToFirstFrame = setTimestamp() - timeToFirstFrame;
+			statistics.setFirstFrameTime(timeToFirstFrame);
+		}
 		statistics.update(paintTime);
 
 		previousTimeStamp = currentTime;
