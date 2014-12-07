@@ -107,6 +107,10 @@ function TestSequence()
 
 ]; */
 
+/*var tests = [
+	{id: 33, object: "Particle", maxObjects: 5, category: "ultra", type: "svghtmlwrap", description: "SVG with HTML Wrapping", required: ["svg"]},
+];*/
+
 var testsInFrames= [
 		{id: 43, object: "Bar", maxObjects: 80, category: "low", type: "htmltransition", description: "HTML with CSS Transitions", required: ["csstransitions"]},
 		{id: 44, object: "Bar", maxObjects: 80, category: "low", type: "htmlanimation", description: "HTML with CSS Animations", required: ["cssanimations"]},

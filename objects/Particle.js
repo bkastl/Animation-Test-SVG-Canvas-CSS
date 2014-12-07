@@ -22,6 +22,24 @@ switch (type) {
 	domNode.setAttribute("r", diameter);
 	domNode.setAttribute("fill", color);
 	break;
+	case "svghtmlwrap":
+	var domNode = document.createElement('div');
+	domNode.style.top = y + 'px';
+	domNode.style.left = x + 'px';
+	domNode.id = uid;
+	stage.appendChild(domNode);
+	diameter = Math.round(diameter);
+	var outerSVGnode = document.createElementNS(svg_ns, "svg");
+	outerSVGnode.setAttribute('width',Math.ceil(diameter*2));
+	outerSVGnode.setAttribute('height',Math.ceil(diameter*2));
+	domNode.appendChild(outerSVGnode);
+	var innerSVGnode = document.createElementNS(svg_ns, "circle");
+	innerSVGnode.setAttribute("r", diameter);
+	innerSVGnode.setAttribute("cx", diameter);
+	innerSVGnode.setAttribute("cy", diameter);
+	innerSVGnode.setAttribute("fill", color);
+	outerSVGnode.appendChild(innerSVGnode);
+	break;
 	case "html":
 	case "htmlposition":
 	var domNode = document.createElement('div');
@@ -119,6 +137,7 @@ this.draw = function (timeOffset) {
 		break;
 		case "html":
 		case "svgcsstransforms":
+		case "svghtmlwrap":
 		
 		domNode.style['-webkit-transform'] = setTranslate(translateX,translateY);
 		domNode.style['transform'] = setTranslate(translateX,translateY);
