@@ -338,7 +338,7 @@ function TestRunner(sequence) {
 			statistics = new Statistics(sequence.length);
 			statistics.addBrowser(browserFeatures);
 			stageObject = new Stage(stage, statistics);
-        	stageObject.prepareStage(sequence[currentTest].type, sequence[currentTest].offscreen, sequence[currentTest].createIndividualElements);
+        	stageObject.prepareStage(sequence[currentTest].type, sequence[currentTest].offscreen, sequence[currentTest].createIndividualElements, sequence[currentTest].dontScale);
     	}
 	},
 	this.optimizeSequence = function(object, type) {

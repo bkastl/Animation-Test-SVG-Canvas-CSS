@@ -1,12 +1,14 @@
 function Stage(stage, statistics) {
 	var self = this,
 	
-	tick = null, timeToFirstFrame = null,
-	previousTimeStamp = null, framesPainted = 0, stageElements = [], individualObjects = false, buffer = undefined, forceGPULayers = false, displayContext = undefined;
+		tick = null, timeToFirstFrame = null,
+		previousTimeStamp = null, framesPainted = 0, stageElements = [], 
+		individualObjects = false, buffer = undefined, forceGPULayers = false, displayContext = undefined;
 
 	var testInterval;
+	var devicePixelRatio = window.devicePixelRatio || 1;
 
-	this.prepareStage = function (type, offscreen, createIndividualElements, forceGPU) {
+	this.prepareStage = function (type, offscreen, createIndividualElements, forceGPU, dontScale) {
 		framesPainted = 0;
 		currentType = type;
 		
@@ -37,6 +39,25 @@ function Stage(stage, statistics) {
 				canvas.setAttribute("height", stageHeight);
 				stage.appendChild(canvas);
 				context = canvas.getContext("2d");
+				backingStoreRatio = context.webkitBackingStorePixelRatio ||
+                            context.mozBackingStorePixelRatio ||
+                            context.msBackingStorePixelRatio ||
+                            context.oBackingStorePixelRatio ||
+                            context.backingStorePixelRatio || 1,
+
+        		ratio = devicePixelRatio / backingStoreRatio;
+
+        		if (devicePixelRatio !== backingStoreRatio && !dontScale) {
+        			var oldWidth = canvas.width;
+        			var oldHeight = canvas.height;
+
+        			canvas.width = oldWidth * ratio;
+        			canvas.height = oldHeight * ratio;
+
+			        canvas.style.width = oldWidth + 'px';
+        			canvas.style.height = oldHeight + 'px';
+        			context.scale(ratio, ratio);
+        		}
 
 			break;
 			case "svg":
